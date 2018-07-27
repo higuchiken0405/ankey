@@ -4,11 +4,11 @@
       <% @users.each do |user| %>
         <div>
           <p>ユーザーID: <span><%= user.id %></p>
-          <p>名前： <%= user.name %></p>
+          <%= link_to user_path(id: user.id) do %>
+            <%= user.name %>
+          <% end %>
       </div>
       <% end %>
-
-
 
 
   </div>
