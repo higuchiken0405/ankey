@@ -18,6 +18,11 @@ class WorkbooksController < ApplicationController
     @workbooks = Workbook.all
   end
 
+  def show
+    @workbook = Workbook.find_by(id: params[:id])
+  end
+
+
 private
   def workbook_params
     params.require(:workbook).permit(:title, :overview)
