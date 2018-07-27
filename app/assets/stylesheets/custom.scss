@@ -1,3 +1,35 @@
+/* ★★★★　ミックイン ★★★★*/
+
+@mixin box_sizing {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizuing:border-box;
+  box-sizing:       border-box;
+}
+
+/**** 基本設定　****/
+body {
+  padding-top: 60px;
+}
+
+.wrapper-index {
+  padding-top: 270px;
+}
+
+
+/**** ヘッダー(header) ****/
+#logo {
+  float: left;
+  margin-right:40px;
+  font-size:40px;
+  color: white;
+  font-weight: bold;
+  &:hover {
+    color: white;
+    text-decoration: none;
+  }
+
+
+}
 
 
 
@@ -6,4 +38,12 @@
 .btn-index {
   padding: 10px 50px;
   font-size: 20px;
+}
+/* ★★★★　デバック表示　★★★★　*/
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  @include box_sizing;
 }
