@@ -20,15 +20,19 @@ body {
 #logo {
   float: left;
   margin-right:40px;
-  font-size:40px;
+  font-size: 40px;
   color: white;
   font-weight: bold;
   &:hover {
     color: white;
     text-decoration: none;
   }
+}
 
-
+.navright {
+  font-size: 20px;
+  margin-top: 5px;
+  margin-left: 15px;
 }
 
 
