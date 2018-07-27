@@ -1,2 +1,20 @@
-<h1>Workbooks#index</h1>
-<p>Find me in app/views/workbooks/index.html.erb</p>
+<div class="wrapper-workbook-index">
+  <div class="container text-center">
+    <h1>問題集</h1>
+    <div class="workbook-new">
+      <%= link_to "問題作成", new_workbook_path %>
+    </div>
+    <div class="workbooks">
+    <% @workbooks.each do |workbook| %>
+    <ul>
+      <li>
+        題名：<%= workbook.title %>
+        概要：<%= workbook.overview %>
+        ID:<%= workbook.user_id %>
+        作成者：<%= workbook.user.name %>
+      <% end %>
+      </li>
+    </ul>
+    </div>
+  </div>
+</div>

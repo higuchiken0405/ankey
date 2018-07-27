@@ -1,5 +1,10 @@
 <%=@user.id %>
 <%= @user.name %>
 <%= @user.email %>
+<% if @user == current_user %>
 <%= link_to "編集", edit_user_path(id: params[:id]) %>
 <%= link_to "ユーザー一覧へ", users_path %>
+<%= link_to "問題集作成", new_workbook_path %>
+<% else %>
+<%= link_to "ユーザー一覧へ", users_path %>
+<% end %>

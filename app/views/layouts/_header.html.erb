@@ -5,18 +5,30 @@
 
       <nav>
         <ul class="nav navbar-nav navbar-right">
-          <li>
-            <%= link_to "link1", "#", class: "navright"%>
-          </li>
-          <li>
-            <%= link_to "link2", "#", class: "navright" %>
-          </li>
-          <li>
-            <%= link_to "ログアウト", logout_path, class: "navright", method: :delete %>
-          </li>
+          <% if logged_in? %>
+            <li>
+              <%= link_to user_path(id: current_user.id), class: "navright" do %>
+              <%= current_user.name %>さん
+              <% end %>
+            </li>
+            <li>
+              <%= link_to "ユーザー一覧", users_path, class: "navright"%>
+            </li>
+            <li>
+              <%= link_to "問題集一覧", workbooks_path, class: "navright" %>
+            </li>
+            <li>
+              <%= link_to "ログアウト", logout_path, class: "navright", method: :delete %>
+            </li>
+          <% else %>
+            <li>
+              <%= link_to "ログイン", login_path, class: "navright" %>
+            </li>
+            <li>
+              <%= link_to "新規登録", new_user_path, class: "navright" %>
+          <% end %>
         </ul>
       </nav>
     </div>
   </nav>
-
 </header>

@@ -4,14 +4,14 @@ class SessionsController < ApplicationController
   def new
   end
 
-  # ログイン画面で入力したフォームの情報を受け取り処理
+  # ログイン処理
   def create
-    user = User.find_by(email: params[:session][:enamil])
+    user = User.find_by(email: params[:session][:email])
     if user && user.authenticate(params[:session][:password])
         log_in(user)
-        redirect_to root_path
+        redirect_to user_path(id: user.id)
     else
-      # エラーメッセージ
+      flash.now[:notice] = "ログインに失敗しました"
       render :new
     end
   end
@@ -19,6 +19,7 @@ class SessionsController < ApplicationController
   # ログアウト
   def destroy
     log_out
+    flash[:info] = "ログアウトしました"
     redirect_to root_url
   end
 
