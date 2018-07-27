@@ -1,29 +1,29 @@
 <div class="wrapper-users-new">
   <div class="container text-center">
   <h1>ユーザー登録</h1>
-  <div class="row">
-    <%= form_for @user do |f| %>
-    <div class="form-group">
-      <%= f.label :"名前" %><br>
-      <%= f.text_field :name %>
-    </div>
-    <div class="form-group">
-      <%= f.label :"メールアドレス" %><br>
-      <%= f.text_field :email %>
-    </div>
-    <div class="form-group">
-      <%= f.label :"パスワード" %><br>
-      <%= f.text_field :password %>
-    </div>
-    <div class="form-group">
-      <%= f.label :"パスワード確認" %><br>
-      <%= f.text_field :email %>
-    </div>
+    <div class="row">
+      <%= form_for @user do |f| %>
+        <div class="form-group">
+          <%= f.label :"名前" %><br>
+          <%= f.text_field :name %>
+        </div>
+        <div class="form-group">
+          <%= f.label :"メールアドレス" %><br>
+          <%= f.email_field :email %>
+        </div>
+        <div class="form-group">
+          <%= f.label :"パスワード" %><br>
+          <%= f.password_field :password %>
+        </div>
+        <div class="form-group">
+          <%= f.label :"パスワード確認" %><br>
+          <%= f.password_field :email %>
+        </div>
 
-    <%= f.submit "登録", class: "btn btn-info" %>
-    <% end %>
+        <%= f.submit "登録", class: "btn btn-info" %>
 
-  </div>
+      <% end %>
+    </div>
 
   </div>
 </div>
