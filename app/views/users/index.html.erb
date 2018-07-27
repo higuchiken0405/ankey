@@ -1,0 +1,15 @@
+<div class="wrapper-uers-index">
+  <div class="container">
+    <h1>ユーザー一覧<h1>
+      <% @users.each do |user| %>
+        <div>
+          <p>ユーザーID: <span><%= user.id %></p>
+          <p>名前： <%= user.name %></p>
+      </div>
+      <% end %>
+
+
+
+
+  </div>
+</div>
