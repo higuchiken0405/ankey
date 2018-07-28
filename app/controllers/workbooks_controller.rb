@@ -6,20 +6,22 @@ class WorkbooksController < ApplicationController
   # 作成ページのフォーム情報を処理
   def create
     @workbook = current_user.workbooks.new(workbook_params)
+    @workbook.user_id = current_user.id
     if @workbook.save
       flash[:sucsess] = "問題集作成に成功しました"
-      redirect_to workbooks_path
+      redirect_to workbook_path(id: @workbook.id)
     else
-      flash[:notice] = "問題集作成に失敗しました"
+      flash[:danger] = "問題集作成に失敗しました"
     end
   end
   # 問題集一覧ページ表示
   def index
     @workbooks = Workbook.all
   end
-
+  # 問題集の詳細ページ表示
   def show
     @workbook = Workbook.find_by(id: params[:id])
+    @question_answer = QuestionAnswer.new
   end
 
 

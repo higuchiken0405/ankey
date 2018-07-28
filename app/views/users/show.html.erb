@@ -1,3 +1,5 @@
+<div class="container">
+<div class="row">
 <%=@user.id %>
 <%= @user.name %>
 <%= @user.email %>
@@ -8,3 +10,17 @@
 <% else %>
 <%= link_to "ユーザー一覧へ", users_path %>
 <% end %>
+</div>
+<div class="row" >
+  <% @workbooks.each do |workbook| %>
+  <ul>
+      <% if workbook.user_id == @user.id %>
+    <li>
+        題名　<%= link_to "#{workbook.title}", workbook_path(workbook.id) %>
+        概要　<%= workbook.overview %>
+    </li>
+      <% end %>
+  </ul>
+  <% end %>
+  </div>
+</div>

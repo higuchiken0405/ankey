@@ -4,9 +4,7 @@
       <% @users.each do |user| %>
         <div>
           <p>ユーザーID: <span><%= user.id %></p>
-          <%= link_to user_path(id: user.id) do %>
-            <%= user.name %>
-          <% end %>
+          <%= link_to "#{user.name}", user_path(id: user.id) %>
       </div>
       <% end %>
 

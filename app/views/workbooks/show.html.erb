@@ -1,5 +1,34 @@
 <div class="wrapper-workbook-show">
   <div class="container text-center">
-  <h1><%= @workbook.title %></h1>
-</div>
+  <h1><%= @workbook.title %> ユーザーid<%= @workbook.user_id %></h1>
+    <div class="row">
+      <% @workbook.question_answers.each do |question_answer| %>
+      <ul>
+        <li>
+          問題 : <%= question_answer.question %>
+          答え : <%= question_answer.answer %>
+          ユーザーid : <%= question_answer.user_id %>
+          問題集id : <%= question_answer.workbook_id %>
+        </li>
+      </ul>
+      <% end %>
+    </div>
+    <div class="row">
+      <% if @workbook.user_id == current_user.id %>
+      <%= form_for @question_answer, url: workbook_question_answers_path(@workbook, @question_answer) do |f| %>
+        <div class="form-group">
+          <%= f.label :question, "問題 : " %>
+          <%= f.text_field :question %>
+        </div>
+        <div class="form-group">
+          <%= f.label :answer, "答え : " %>
+          <%= f.text_field :answer %>
+        </div>
+          <%= f.submit "登録"%>
+      <% end %>
+      <% end %>
+
+
+    </div>
+  </div>
 </div>

@@ -4,4 +4,5 @@ class Workbook < ApplicationRecord
   validates :title, presence: true
   validates :overview, presence: true
   belongs_to :user
+  has_many :question_answers
 end

@@ -8,12 +8,10 @@
     <% @workbooks.each do |workbook| %>
     <ul>
       <li>
-        題名：<%=link_to workbook_path(id: workbook.id) do %>
-        <%= workbook.title %>
-        <% end %>
+        題名：<%=link_to "#{workbook.title}", workbook_path(id: workbook.id) %>
         概要：<%= workbook.overview %>
         ID:<%= workbook.user_id %>
-        作成者：<%= workbook.user.name %>
+        作成者：<%=link_to "#{workbook.user.name}", user_path(id: workbook.user_id) %>
       <% end %>
       </li>
     </ul>
