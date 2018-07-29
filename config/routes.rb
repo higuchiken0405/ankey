@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :workbooks do
     resources :question_answers
   end
-
+  get "/workbooks/:id/slider", to: "workbooks#slider"
 
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"

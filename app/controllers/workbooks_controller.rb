@@ -24,6 +24,11 @@ class WorkbooksController < ApplicationController
     @question_answer = QuestionAnswer.new
   end
 
+  def slider
+    @workbook = Workbook.find_by(id: params[:id])
+    @question_answer = QuestionAnswer.new
+  end
+
 
 private
   def workbook_params

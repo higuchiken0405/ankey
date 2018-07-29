@@ -8,6 +8,7 @@
 
 /**** 基本設定　****/
 body {
+  margin: 0;
   padding-top: 60px;
 }
 
@@ -43,6 +44,61 @@ body {
   padding: 10px 50px;
   font-size: 20px;
 }
+
+/**** スライドショー　****/
+.wrapper-workbook-slider {
+  .container-workbook-slider {
+    margin-top: 50px;
+    padding:0;
+  }
+}
+
+.slide {
+  font-size: 30px;
+  display: none;
+  padding: 15px 0;
+  word-wrap: break-word;
+  p {
+  }
+}
+.active-slide {
+  display: block;
+}
+.container-question {
+  padding: 0 20px;
+  border: 1px solid #0091C5;
+  border-radius: 25px;
+  background-color: #0091C5;
+  .question {
+    font-size: 20px;
+    padding:10px 0 10px 0;
+    color: #404040;
+  }
+}
+.container-slide-btn {
+  margin:10px 0;
+  padding:0;
+}
+
+
+.container-answer {
+  padding: 0 20px;
+  border: 1px solid #8ED1E0;
+  border-radius: 25px;
+  background-color: #8ED1E0;
+  .answer {
+    font-size: 20px;
+    padding:10px 0 10px 0;
+    color: #404040;
+  }
+}
+.hidden-answer {
+  display: none;
+}
+.slide-btn {
+  margin: 20px 0;
+}
+
 /* ★★★★　デバック表示　★★★★　*/
 .debug_dump {
   clear: both;

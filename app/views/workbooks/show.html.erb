@@ -1,6 +1,7 @@
 <div class="wrapper-workbook-show">
   <div class="container text-center">
   <h1><%= @workbook.title %> ユーザーid<%= @workbook.user_id %></h1>
+  <%= link_to "スライドへ", "#{@workbook.id}/slider" %>
     <div class="row">
       <% @workbook.question_answers.each do |question_answer| %>
       <ul>
