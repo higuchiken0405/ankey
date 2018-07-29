@@ -1,26 +1,30 @@
-<div class="container">
-<div class="row">
-<%=@user.id %>
-<%= @user.name %>
-<%= @user.email %>
-<% if @user == current_user %>
-<%= link_to "編集", edit_user_path(id: params[:id]) %>
-<%= link_to "ユーザー一覧へ", users_path %>
-<%= link_to "問題集作成", new_workbook_path %>
-<% else %>
-<%= link_to "ユーザー一覧へ", users_path %>
-<% end %>
-</div>
-<div class="row" >
-  <% @workbooks.each do |workbook| %>
-  <ul>
-      <% if workbook.user_id == @user.id %>
-    <li>
-        題名　<%= link_to "#{workbook.title}", workbook_path(workbook.id) %>
-        概要　<%= workbook.overview %>
-    </li>
-      <% end %>
-  </ul>
-  <% end %>
+<div class="wrapper-user-show">
+  <div class="container">
+    <div class="row">
+      <div class="row col-md-4">
+        <div class="user-show-name">
+          <%= @user.name %>
+          <%= link_to "ユーザー情報編集", edit_user_path(id: params[:id]) if @user == current_user %>
+        </div>
+      </div>
+      <div class="row col-md-7">
+        <%= link_to "問題集作成", new_workbook_path if @user == current_user %>
+        <% @workbooks.each do |workbook| %>
+        <div class="row">
+          <% if workbook.user_id == @user.id %>
+            <div>
+              <%= link_to "#{workbook.title}", workbook_path(workbook.id) %>
+            </div>
+            <div>
+              <%= workbook.overview %>
+            </div>
+          <% end %>
+        </div>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
+user.id <%=@user.id %><br>
+user.name <%= @user.name %><br>
+user.email <%= @user.email %><br>

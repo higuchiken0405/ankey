@@ -1,35 +1,21 @@
 <div class="wrapper-workbook-show">
   <div class="container text-center">
   <h1><%= @workbook.title %> ユーザーid<%= @workbook.user_id %></h1>
-  <%= link_to "スライドへ", "#{@workbook.id}/slider" %>
-    <div class="row">
-      <% @workbook.question_answers.each do |question_answer| %>
-      <ul>
-        <li>
-          問題 : <%= question_answer.question %>
-          答え : <%= question_answer.answer %>
-          ユーザーid : <%= question_answer.user_id %>
-          問題集id : <%= question_answer.workbook_id %>
-        </li>
-      </ul>
-      <% end %>
-    </div>
-    <div class="row">
-      <% if @workbook.user_id == current_user.id %>
-      <%= form_for @question_answer, url: workbook_question_answers_path(@workbook, @question_answer) do |f| %>
-        <div class="form-group">
-          <%= f.label :question, "問題 : " %>
-          <%= f.text_field :question %>
-        </div>
-        <div class="form-group">
-          <%= f.label :answer, "答え : " %>
-          <%= f.text_field :answer %>
-        </div>
-          <%= f.submit "登録"%>
-      <% end %>
-      <% end %>
+    <%= link_to "スライドへ", "#{@workbook.id}/slider", class:'btn btn-info' %>
+    <div class="btn btn-info question-answer-form-show-btn">問題・答えを作成</div>
+      <%= render 'workbooks/question_answer_form' %>
+      <%= render 'workbooks/question_answer_list' %>
 
-
-    </div>
   </div>
 </div>
+
+<script>
+$(function(){
+  $(document).on('click', '.question-answer-form-show-btn', function(){
+    $('#question-answer-form-modal').fadeIn();
+  });
+  $(document).on('click', '.close-modal', function(){
+    $('#question-answer-form-modal').fadeOut();
+  });
+});
+</script>

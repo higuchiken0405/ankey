@@ -11,9 +11,14 @@ class QuestionAnswersController < ApplicationController
        flash.now[:danger] = "問題の登録に失敗しました"
        render "workbooks/show"
      end
-
   end
 
+  def update
+    
+  end
+
+  def destory
+  end
 private
   def question_answer_params
     params.require(:question_answer).permit(:question, :answer)

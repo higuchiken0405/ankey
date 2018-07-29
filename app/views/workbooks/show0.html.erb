@@ -1,0 +1,47 @@
+<div class="wrapper-workbook-show">
+  <div class="container text-center">
+  <h1><%= @workbook.title %> ユーザーid<%= @workbook.user_id %></h1>
+    <%= link_to "スライドへ", "#{@workbook.id}/slider", class:'btn btn-info' %>
+  <div class="container-workbook-show">
+    <div class="row">
+      <div class="data-name border-right col-md-5">問題</div>
+      <div class="data-name border-right data-2 col-md-3">答え</div>
+      <div class="data-name border-right data-3 col-md-2">作成者ID</div>
+      <div class="data-name col-md-2">問題集ID</div>
+    </div>
+      <% @workbook.question_answers.each do |question_answer| %>
+      <div class="row row-workbook-show">
+          <div class="list-workbook-show col-md-5">
+            <%= question_answer.question %>
+          </div>
+          <div class="list-workbook-show col-md-3">
+            <%= question_answer.answer %>
+          </div>
+          <div class="list-workbook-show col-md-2">
+            <%= question_answer.user_id %>
+          </div>
+          <div class="list-workbook-show col-md-2">
+            <%= question_answer.workbook_id %>
+          </div>
+      </div>
+      <% end %>
+  </div>
+      <% if @workbook.user_id == current_user.id %>
+        <%= form_for @question_answer, url: workbook_question_answers_path(@workbook, @question_answer) do |f| %>
+        <div class="row question-answer-form">
+          <div class="form-group col-md-offset-1 col-md-5">
+            <%= f.label :question, "問題" %>
+            <%= f.text_area :question, class: 'question-form' %>
+          </div>
+          <div class="form-group col-md-5">
+            <%= f.label :answer, "答え" %>
+            <%= f.text_area :answer, class: 'answer-form' %>
+          </div>
+        </div>
+            <%= f.submit "登録", class: 'btn btn-info' %>
+        <% end %>
+      <% end %>
+    </div>
+
+  </div>
+</div>
