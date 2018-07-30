@@ -1,0 +1,14 @@
+<div class="container-answer hidden-answer">
+  <div class="answer">答え</div>
+    <% @workbook.question_answers.each_with_index do |question_answer, index| %>
+      <% if index == 0 %>
+        <div class="slide active-slide">
+          <%= question_answer.answer %>
+        </div>
+      <% else %>
+        <div class="slide">
+          <%= question_answer.answer %>
+        </div>
+      <% end %>
+    <% end %>
+</div>

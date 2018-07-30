@@ -1,30 +1,32 @@
-<div class="wrapper-workbook-index">
-  <div class="container text-center">
-    <h1>問題集</h1>
-    <div class="workbook-new">
-      <%= link_to "問題作成", new_workbook_path %>
-    </div>
-    <div class="workbooks">
-      <div class="col-md-3">題名</div>
-      <div class="col-md-3">概要</div>
-      <div class="col-md-3">作成者ID</div>
-      <div class="col-md-3">作成者名</div>
-    <% @workbooks.each do |workbook| %>
-    <div class="row">
-      <div class="col-md-3">
-        <%=link_to "#{workbook.title}", workbook_path(id: workbook.id) %>
-      </div>
-      <div class="col-md-3">
-        <%= workbook.overview %>
-      </div>
-      <div class="col-md-3">
-        <%= workbook.user_id %>
-      </div>
-      <div class="col-md-3">
-        <%=link_to "#{workbook.user.name}", user_path(id: workbook.user_id) %>
-      </div>
-    </div>
-    <% end %>
+<div class="wrapper wrapper-workbook-index">
+  <div class="container text-center container-background">
+    <div class="container-workbook-index">
+      <h1>問題集</h1>
+        <div class="workbook-new">
+          <%= link_to "問題作成", new_workbook_path %>
+        </div>
+        <div class="workbooks">
+          <div class="col-md-3">題名</div>
+          <div class="col-md-3">概要</div>
+          <div class="col-md-3">作成者ID</div>
+          <div class="col-md-3">作成者名</div>
+            <% @workbooks.each do |workbook| %>
+            <div class="row">
+              <div class="col-md-3">
+                <%=link_to "#{workbook.title}", workbook_path(id: workbook.id) %>
+              </div>
+              <div class="col-md-3">
+                <%= workbook.overview %>
+              </div>
+              <div class="col-md-3">
+                <%= workbook.user_id %>
+              </div>
+              <div class="col-md-3">
+                <%=link_to "#{workbook.user.name}", user_path(id: workbook.user_id) %>
+              </div>
+            </div>
+            <% end %>
+        </div>
     </div>
   </div>
 </div>

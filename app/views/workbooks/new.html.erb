@@ -1,5 +1,6 @@
-<div class="wrapper-workbook-new">
-  <div class="container text-center">
+<div class="wrapper wrapper-workbook-new">
+  <div class="container text-center container-background">
+    <div class="container-workbook-new">
     <div class="row">
       <h1>問題集作成</h1>
       <%= form_for @workbook do |f| %>
@@ -15,6 +16,7 @@
           <%= f.submit "登録", class:'btn btn-info' %>
 
       <% end %>
+    </div>
     </div>
   </div>
 </div>

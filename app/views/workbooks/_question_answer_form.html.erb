@@ -1,18 +1,20 @@
-<div class="container-question-answer-form modal-lg" id="question-answer-form-modal">
-  <div class="text-right"><i class="close-modal">×</i></div>
-  <% if @workbook.user_id == current_user.id %>
-    <%= form_for @question_answer, url: workbook_question_answers_path(@workbook, @question_answer) do |f| %>
-      <div class="row question-answer-form">
-        <div class="form-group col-md-offset-1 col-md-5">
-          <%= f.label :question, "問題" %>
-          <%= f.text_area :question, class: 'question-form' %>
-        </div>
-        <div class="form-group col-md-5">
-          <%= f.label :answer, "答え" %>
-          <%= f.text_area :answer, class: 'answer-form' %>
-        </div>
-      </div>
-        <%= f.submit "登録", class: 'btn btn-info' %>
-    <% end %>
-  <% end %>
+<div class="container-question-answer-form" id="question-answer-form-modal">
+  <div class ="modal-form">
+    <div class="text-right"><i class="close-modal">×</i></div>
+      <% if @workbook.user_id == current_user.id %>
+        <%= form_for @question_answer, url: workbook_question_answers_path(@workbook, @question_answer) do |f| %>
+          <div class="row question-answer-form">
+            <div class="form-group col-md-6">
+              <%= f.label :question, "問題" %>
+              <%= f.text_area :question, class: 'question-form' %>
+            </div>
+            <div class="form-group col-md-6">
+              <%= f.label :answer, "答え" %>
+              <%= f.text_area :answer, class: 'answer-form' %>
+            </div>
+          </div>
+              <%= f.submit "登録", class: 'btn btn-info' %>
+        <% end %>
+      <% end %>
+  </div>
 </div>

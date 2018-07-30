@@ -7,17 +7,32 @@
 }
 
 /**** 基本設定　****/
+
 body {
   margin: 0;
-  padding-top: 60px;
+  padding: 0;
+  background-image: url('flash_card.jpg');
+  background-size: cover;
+  height: 100%;
+  border: 3px solid blue;
 }
-
 .wrapper-index {
   padding-top: 270px;
 }
+.wrapper {
+  height: 100%;
+}
 
+.container-background {
+  background-color: rgba(255, 255, 255, 0.9);
+  min-height: 98vh;
+  border: 1px solid green;
+}
 
 /**** ヘッダー(header) ****/
+header {
+  z-index: 10;
+}
 #logo {
   float: left;
   margin-right:40px;
@@ -29,24 +44,40 @@ body {
     text-decoration: none;
   }
 }
-
 .navright {
   font-size: 15px;
   margin-top: 5px;
   margin-left: 15px;
 }
 
-
+/**** フッター(footer) ****/
+footer {
+.footer-logo {
+  color: white;
+}
+}
 
 
 /**** トップページ(index) ****/
-.btn-index {
-  padding: 10px 50px;
-  font-size: 20px;
+.row-login-signup {
+
+  .btn-index {
+    padding: 10px 50px;
+    font-size: 20px;
+  }
 }
+/**** ユーザー詳細(user-show) ****/
+.container-user-show {
+  padding: 80px;
+}
+
+
 /**** 問題集詳細(問題・答え追加)(workbook-show) ****/
 .wrapper-workbook-show {
   z-index: 1;
+}
+.container-workbook-show, .container-workbook-index, .container-workbook-new {
+  margin-top: 60px;
 }
 .data-name {
   padding: 5px 0;
@@ -68,14 +99,27 @@ body {
 
 /**** 問題・答え作成フォーム_question_answer_form ****/
 #question-answer-form-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.6);
   display: none;
+  z-index: 100;
+}
+.modal-form {
+  position: absolute;
+  top: 20%;
+  left: 17%;
+  width: 70%;
   padding-bottom: 20px;
   border: 1px solid #45a2e3;
   border-radius: 25px;
   background-color: #45a2e3;
-  position: fixed;
-  z-index: 2;
 }
+
+
 .close-modal {
   font-size: 30px;
   font-weight: bold;
@@ -90,23 +134,19 @@ body {
   .question-form {
     resize: vertical;
     width:100%;
-    height:200px;
+    height:150px;
   }
   .answer-form {
     resize: vertical;
     width:100%;
-    height:200px;
+    height:150px;
   }
 }
 
 /**** スライドショー　****/
-.wrapper-workbook-slider {
-  .container-workbook-slider {
-    margin-top: 50px;
-    padding:0;
-  }
+.container-workbook-slider {
+  margin-top: 60px;
 }
-
 .slide {
   font-size: 30px;
   display: none;

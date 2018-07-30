@@ -1,30 +1,37 @@
-<div class="wrapper-user-show">
-  <div class="container">
-    <div class="row">
-      <div class="row col-md-4">
-        <div class="user-show-name">
-          <%= @user.name %>
-          <%= link_to "ユーザー情報編集", edit_user_path(id: params[:id]) if @user == current_user %>
+<div class="wrapper wrapper-user-show">
+  <div class="container container-background">
+    <div class="container-user-show">
+
+      <div class="row">
+
+        <div class="col-md-4">
+          <div class="user-show-name">
+            <%= @user.name %>
+            <%= link_to "ユーザー情報編集", edit_user_path(id: params[:id]) if @user == current_user %>
+          </div>
         </div>
-      </div>
-      <div class="row col-md-7">
-        <%= link_to "問題集作成", new_workbook_path if @user == current_user %>
-        <% @workbooks.each do |workbook| %>
-        <div class="row">
-          <% if workbook.user_id == @user.id %>
-            <div>
-              <%= link_to "#{workbook.title}", workbook_path(workbook.id) %>
+
+        <div class="col-md-8">
+          <%= link_to "問題集作成", new_workbook_path, class: 'btn btn-block btn-primary' if @user == current_user %>
+            <div class="row">
+              <% @workbooks.each do |workbook| %>
+                <% if workbook.user_id == @user.id %>
+                  <div class="user-show-workbook-title col-md-4">
+                    <%= link_to "#{workbook.title}", workbook_path(workbook.id) %>
+                  </div>
+                  <div class="user-show-workbook-overview col-md-5">
+                    <%= workbook.overview %>
+                  </div>
+                  <div class="col-md-3">
+                    <%= link_to "スライド", "/workbooks/#{workbook.id}/slider", class: 'btn btn-info' %>
+                  </div>
+                <% end %>
+              <% end %>
             </div>
-            <div>
-              <%= workbook.overview %>
-            </div>
-          <% end %>
         </div>
-        <% end %>
+
       </div>
+
     </div>
   </div>
 </div>
-user.id <%=@user.id %><br>
-user.name <%= @user.name %><br>
-user.email <%= @user.email %><br>
