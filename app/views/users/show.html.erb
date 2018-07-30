@@ -12,7 +12,10 @@
         </div>
 
         <div class="col-md-8">
-          <%= link_to "問題集作成", new_workbook_path, class: 'btn btn-block btn-primary' if @user == current_user %>
+          <% if @user == current_user %>
+            <div class="btn btn-block btn-info work-new-form-show-btn">問題集作成</div>
+            <%= render 'workbooks/workbook_form' %>
+          <% end %>
             <div class="row">
               <% @workbooks.each do |workbook| %>
                 <% if workbook.user_id == @user.id %>
@@ -35,3 +38,16 @@
     </div>
   </div>
 </div>
+
+
+<script>
+$(function(){
+  // ”問題集を作成”ボタンを押すと、モーダルフォーム表示
+  $(document).on('click', '.work-new-form-show-btn', function(){
+    $('#workbook-new-form-modal').fadeIn();
+  });
+  $(document).on('click', '.close-modal', function(){
+    $('#workbook-new-form-modal').fadeOut();
+  });
+});
+</script>

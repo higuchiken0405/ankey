@@ -14,7 +14,6 @@ body {
   background-image: url('flash_card.jpg');
   background-size: cover;
   height: 100%;
-  border: 3px solid blue;
 }
 .wrapper-index {
   padding-top: 270px;
@@ -26,7 +25,6 @@ body {
 .container-background {
   background-color: rgba(255, 255, 255, 0.9);
   min-height: 98vh;
-  border: 1px solid green;
 }
 
 /**** ヘッダー(header) ****/
@@ -71,7 +69,18 @@ footer {
   padding: 80px;
 }
 
+/**** 問題集モーダル****/
 
+#workbook-new-form-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: none;
+  z-index: 100;
+}
 /**** 問題集詳細(問題・答え追加)(workbook-show) ****/
 .wrapper-workbook-show {
   z-index: 1;

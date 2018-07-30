@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update]
   before_action :correct_user, only: [:edit, :update]
-  
+
   # ユーザー登録画面
   def new
     @user = User.new
@@ -26,6 +26,7 @@ class UsersController < ApplicationController
   # ユーザー情報ページ表示
   def show
     @user = User.find_by(id: params[:id])
+    @workbook = Workbook.new
     @workbooks = Workbook.all
   end
 

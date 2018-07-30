@@ -3,8 +3,8 @@
     <div class="container-workbook-index">
       <h1>問題集</h1>
         <div class="workbook-new">
-          <%= link_to "問題作成", new_workbook_path %>
-        </div>
+            <div class="btn btn-lg btn-primary work-new-form-show-btn">問題集作成</div>
+            <%= render 'workbooks/workbook_form' %>
         <div class="workbooks">
           <div class="col-md-3">題名</div>
           <div class="col-md-3">概要</div>
@@ -30,3 +30,14 @@
     </div>
   </div>
 </div>
+<script>
+$(function(){
+  // ”問題集を作成”ボタンを押すと、モーダルフォーム表示
+  $(document).on('click', '.work-new-form-show-btn', function(){
+    $('#workbook-new-form-modal').fadeIn();
+  });
+  $(document).on('click', '.close-modal', function(){
+    $('#workbook-new-form-modal').fadeOut();
+  });
+});
+</script>

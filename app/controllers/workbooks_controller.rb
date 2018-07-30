@@ -16,6 +16,7 @@ class WorkbooksController < ApplicationController
   end
   # 問題集一覧ページ表示
   def index
+    @workbook = Workbook.new
     @workbooks = Workbook.all
   end
   # 問題集の詳細ページ表示
