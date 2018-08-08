@@ -6,23 +6,27 @@
             <div class="btn btn-lg btn-primary work-new-form-show-btn">問題集作成</div>
             <%= render 'workbooks/workbook_form' %>
         <div class="workbooks">
-          <div class="col-md-3">題名</div>
-          <div class="col-md-3">概要</div>
-          <div class="col-md-3">作成者ID</div>
-          <div class="col-md-3">作成者名</div>
+          <div class="col-md-2">題名</div>
+          <div class="col-md-2">概要</div>
+          <div class="col-md-2">作成者ID</div>
+          <div class="col-md-2">作成者名</div>
+          <div class="col-md-2 col-md-offset-2">スライド</div>
             <% @workbooks.each do |workbook| %>
             <div class="row">
-              <div class="col-md-3">
+              <div class="col-md-2">
                 <%=link_to "#{workbook.title}", workbook_path(id: workbook.id) %>
               </div>
-              <div class="col-md-3">
-                <%= workbook.overview %>
+              <div class="col-md-2">
+                <%= simple_format(workbook.overview) %>
               </div>
-              <div class="col-md-3">
+              <div class="col-md-2">
                 <%= workbook.user_id %>
               </div>
-              <div class="col-md-3">
+              <div class="col-md-2">
                 <%=link_to "#{workbook.user.name}", user_path(id: workbook.user_id) %>
+              </div>
+              <div class="col-md-2 col-md-offset-2">
+                <%= link_to "スライド", "/workbooks/#{workbook.id}/slider", class: 'btn btn-info' %>
               </div>
             </div>
             <% end %>

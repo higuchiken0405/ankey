@@ -2,7 +2,7 @@
   <div class="container text-center container-background">
     <div class="container-workbook-show">
       <h1><%= @workbook.title %> ユーザーid<%= @workbook.user_id %></h1>
-        <%= link_to "スライドへ", "#{@workbook.id}/slider", class:'btn btn-info' %>
+        <%= link_to "スライドへ", "#{@workbook.id}/slider", class:'btn btn-info slide-start-btn' %>
         <% if @workbook.user_id == current_user.id %>
           <div class="btn btn-info question-answer-form-show-btn">問題・答えを作成</div>
         <% end %>
@@ -21,6 +21,10 @@ $(function(){
   });
   $(document).on('click', '.close-modal', function(){
     $('#question-answer-form-modal').fadeOut();
+  });
+  // スライドにアクセス時に更新　nextの処理が2個ずつ増えるため
+  $(document).on('click', '.slide-start-btn', function(){
+    location.reload();
   });
 });
 </script>

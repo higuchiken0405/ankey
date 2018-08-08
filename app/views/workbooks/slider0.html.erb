@@ -2,29 +2,14 @@
   <div class="container text-center container-background">
     <div class="container-workbook-slider">
 
-      <% woorbook_question_answers = @workbook.question_answers %>
-
-      <div class="container-question">
-        <div class="question">問題</div>
-          <% woorbook_question_answers.each_with_index do |question_answer, index| %>
-            <% if index == 0 %>
-              <div class="slide active-slide">
-                <p><%= simple_format(question_answer.question) %></p>
-              </div>
-            <% else %>
-              <div class="slide">
-                <p><%= simple_format(question_answer.question) %></p>
-              </div>
-            <% end %>
-          <% end %>
-      </div>
+      <%= render 'workbooks/slider_question' %>
 
       <div class="container container-slide-btn">
         <div class="row slide-btn">
           <div class="btn btn-info prev-btn change-btn col-md-3">
             前へ
           </div>
-          <div class="btn btn-info answer-btn col-md-offset-1 col-md-4">
+          <div class="btn btn-info answer-btn col-md-4 col-md-offset-1">
             答えを表示する
           </div>
           <div class="btn btn-info next-btn change-btn col-md-offset-1 col-md-3">
@@ -33,20 +18,7 @@
         </div>
       </div>
 
-      <div class="container-answer hidden-answer">
-        <div class="answer">答え</div>
-          <% woorbook_question_answers.each_with_index do |question_answer, index| %>
-            <% if index == 0 %>
-              <div class="slide active-slide">
-                <%= simple_format(question_answer.answer) %>
-              </div>
-            <% else %>
-              <div class="slide">
-                <%= simple_format(question_answer.answer) %>
-              </div>
-            <% end %>
-          <% end %>
-      </div>
+      <%= render 'workbooks/slider_answer' %>
 
       <%= link_to "スライドショーを終える", workbook_path(id: params[:id]) %>
 

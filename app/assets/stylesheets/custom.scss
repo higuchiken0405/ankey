@@ -7,7 +7,6 @@
 }
 
 /**** 基本設定　****/
-
 body {
   margin: 0;
   padding: 0;
@@ -106,6 +105,10 @@ footer {
   word-wrap: break-word;
 }
 
+.btn-remenber {
+  padding: 10px 10px;
+}
+
 /**** 問題・答え作成フォーム_question_answer_form ****/
 #question-answer-form-modal {
   position: fixed;
@@ -161,8 +164,6 @@ footer {
   display: none;
   padding: 15px 0;
   word-wrap: break-word;
-  p {
-  }
 }
 .active-slide {
   display: block;
@@ -181,8 +182,10 @@ footer {
 .container-slide-btn {
   margin:10px 0;
   padding:0;
+  .slide-btn {
+    width:98%;
+  }
 }
-
 
 .container-answer {
   padding: 0 20px;
@@ -195,6 +198,11 @@ footer {
     color: #404040;
   }
 }
+
+.shuffle-question, .shuffle-answer {
+  display: none;
+}
+
 .hidden-answer {
   display: none;
 }

@@ -24,12 +24,11 @@ class WorkbooksController < ApplicationController
     @workbook = Workbook.find_by(id: params[:id])
     @question_answer = QuestionAnswer.new
   end
-
+  # スライドページ表示
   def slider
     @workbook = Workbook.find_by(id: params[:id])
     @question_answer = QuestionAnswer.new
   end
-
 
 private
   def workbook_params

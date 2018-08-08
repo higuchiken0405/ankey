@@ -1,13 +1,13 @@
 <div class="container-question">
   <div class="question">問題</div>
-    <% @workbook.question_answers.each_with_index do |question_answer, index| %>
+    <% a.each_with_index do |question_answer, index| %>
       <% if index == 0 %>
         <div class="slide active-slide">
-          <p><%= question_answer.question %></p>
+          <p><%= simple_format(question_answer.question) %></p>
         </div>
       <% else %>
         <div class="slide">
-          <p><%= question_answer.question %></p>
+          <p><%= simple_format(question_answer.question) %></p>
         </div>
       <% end %>
     <% end %>
