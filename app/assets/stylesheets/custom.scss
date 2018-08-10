@@ -104,10 +104,14 @@ footer {
   text-align: left;
   word-wrap: break-word;
 }
-
-.btn-remenber {
-  padding: 10px 10px;
+/* 問題集の答えを非表示 */
+.hidden-answer-workbook {
+  visibility: hidden;
 }
+.show-answer-workbook {
+  
+}
+
 
 /**** 問題・答え作成フォーム_question_answer_form ****/
 #question-answer-form-modal {

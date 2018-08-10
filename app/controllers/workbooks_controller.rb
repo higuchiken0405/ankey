@@ -16,18 +16,21 @@ class WorkbooksController < ApplicationController
   end
   # 問題集一覧ページ表示
   def index
+    # 問題集作成フォーム用のインスタンス
     @workbook = Workbook.new
+    # 問題集一覧表示のため、全ての要素を取得し、代入
     @workbooks = Workbook.all
   end
   # 問題集の詳細ページ表示
   def show
     @workbook = Workbook.find_by(id: params[:id])
+    # 問題・答え作成フォーム用のインスタンス
     @question_answer = QuestionAnswer.new
+    @memory = Memory.find_by(user_id: current_user.id)
   end
   # スライドページ表示
   def slider
     @workbook = Workbook.find_by(id: params[:id])
-    @question_answer = QuestionAnswer.new
   end
 
 private
