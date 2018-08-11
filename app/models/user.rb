@@ -8,5 +8,6 @@ class User < ApplicationRecord
   has_many :workbooks
   has_many :question_answers
   has_many :memories
+  has_many :memory_question_answers, through: :memories, source: 'question_answer'
 
 end

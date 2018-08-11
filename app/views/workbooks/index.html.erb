@@ -5,12 +5,48 @@
         <div class="workbook-new">
             <div class="btn btn-lg btn-primary work-new-form-show-btn">問題集作成</div>
             <%= render 'workbooks/workbook_form' %>
+
+            <%= search_form_for @search do |f| %>
+              <div class="form-group">
+                <%= f.label :title_or_overview_cont, "タイトル・概要検索" %>
+                <%= f.text_field :title_or_overview_cont, class: "form-control" %>
+              </div>
+              <div class="actions"><%= f.submit "検索" %></div>
+            <% end %>
+
         <div class="workbooks">
           <div class="col-md-2">題名</div>
           <div class="col-md-2">概要</div>
           <div class="col-md-2">作成者ID</div>
           <div class="col-md-2">作成者名</div>
-          <div class="col-md-2 col-md-offset-2">スライド</div>
+          <div class="col-md-1">スライド</div>
+          <div class="col-md-1 col-md-offset-2">ランダム</div>
+
+          <% if @result.any? %>
+          <% @result.each do |result| %>
+          <div class="row">
+            <div class="col-md-2">
+              <%=link_to "#{result.title}", workbook_path(id: result.id) %>
+            </div>
+            <div class="col-md-2">
+              <%= simple_format(result.overview) %>
+            </div>
+            <div class="col-md-2">
+              <%= result.user_id %>
+            </div>
+            <div class="col-md-2">
+              <%=link_to "#{result.user.name}", user_path(id: result.user_id) %>
+            </div>
+            <div class="col-md-1">
+              <%= link_to "スライド", "/workbooks/#{result.id}/slider?display=1", class: 'btn btn-info' %>
+            </div>
+            <div class="col-md-1 col-md-offset-2">
+              <%= link_to "ランダム", "/workbooks/#{result.id}/slider?display=2", class: 'btn btn-warning' %>
+            </div>
+          </div>
+          <% end %>
+          <% end %>
+            <% if @result.nil? %>
             <% @workbooks.each do |workbook| %>
             <div class="row">
               <div class="col-md-2">
@@ -25,10 +61,16 @@
               <div class="col-md-2">
                 <%=link_to "#{workbook.user.name}", user_path(id: workbook.user_id) %>
               </div>
-              <div class="col-md-2 col-md-offset-2">
+              <div class="col-md-1">
                 <%= link_to "スライド", "/workbooks/#{workbook.id}/slider", class: 'btn btn-info' %>
               </div>
+              <div class="col-md-1 col-md-offset-2">
+                <%= link_to "ランダム", "/workbooks/#{workbook.id}/slider?display=2", class: 'btn btn-warning' %>
+              </div>
+
+
             </div>
+            <% end %>
             <% end %>
         </div>
     </div>

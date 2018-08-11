@@ -2,11 +2,9 @@
   <div class="container text-center container-background">
     <div class="container-workbook-slider">
 
-      <% woorbook_question_answers = @workbook.question_answers %>
-
       <div class="container-question">
-        <div class="question">問題</div>
-          <% woorbook_question_answers.each_with_index do |question_answer, index| %>
+        <div class="question">問題 <%= @display %></div>
+          <% @workbook_question_answers.each_with_index do |question_answer, index| %>
             <% if index == 0 %>
               <div class="slide active-slide">
                 <p><%= simple_format(question_answer.question) %></p>
@@ -35,7 +33,7 @@
 
       <div class="container-answer hidden-answer">
         <div class="answer">答え</div>
-          <% woorbook_question_answers.each_with_index do |question_answer, index| %>
+          <% @workbook_question_answers.each_with_index do |question_answer, index| %>
             <% if index == 0 %>
               <div class="slide active-slide">
                 <%= simple_format(question_answer.answer) %>

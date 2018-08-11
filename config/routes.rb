@@ -13,5 +13,6 @@ Rails.application.routes.draw do
   delete "/logout", to: "sessions#destroy"
 
   post "/memories", to: "memories#create"
+  delete "/memories", to: "memories#destroy"
 
 end

@@ -13,4 +13,12 @@ class MemoriesController < ApplicationController
       redirect_to workbook_path(id: params[:workbook_id])
     end
   end
+
+  def destroy
+    @memory = Memory.find_by(question_answer_id: params[:question_answer_id])
+    @memory.delete
+    redirect_to workbook_path(id: params[:workbook_id])
+  end
+
+
 end

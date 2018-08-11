@@ -2,7 +2,8 @@
   <div class="container text-center container-background">
     <div class="container-workbook-show">
       <h1><%= @workbook.title %> ユーザーid<%= @workbook.user_id %></h1>
-        <%= link_to "スライドへ", "#{@workbook.id}/slider", class:'btn btn-info slide-start-btn' %>
+        <%= link_to "スライドへ", "#{@workbook.id}/slider?display=1", class:'btn btn-info slide-start-btn' %>
+        <%= link_to "ランダム表示", "#{@workbook.id}/slider?display=2", class:'btn btn-warning slide-start-btn' %>
         <% if @workbook.user_id == current_user.id %>
           <div class="btn btn-info question-answer-form-show-btn">問題・答えを作成</div>
         <% end %>
