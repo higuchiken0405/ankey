@@ -25,9 +25,14 @@ class UsersController < ApplicationController
   end
   # ユーザー情報ページ表示
   def show
+    # ユーザー情報の取得
     @user = User.find_by(id: params[:id])
+    # 問題集作成フォーム用のインスタンス
     @workbook = Workbook.new
+    # 問題集一覧を取得
     @workbooks = Workbook.all
+    # お気に入りの問題集一覧を取得
+    @favorite_workbooks = @user.favorite_workbooks
   end
 
 

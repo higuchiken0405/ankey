@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'favorites/create'
+  get 'favorites/destroy'
   root "pages#index"
   get "/signup",  to: "users#new"
   resources :users
@@ -14,5 +16,9 @@ Rails.application.routes.draw do
 
   post "/memories", to: "memories#create"
   delete "/memories", to: "memories#destroy"
+
+  post "/favorites", to: "favorites#create"
+  delete "/favorites", to: "favorites#destroy"
+
 
 end

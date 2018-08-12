@@ -68,6 +68,23 @@ footer {
   padding: 80px;
 }
 
+
+/**** 問題集一覧(workooks-index) ****/
+.fa-star {
+  font-size: 20px;
+  color: yellow;
+  text-shadow:
+    black 1px 1px 0, black -1px -1px 0, /* 右下、左上 */
+    black -1px 1px 0, black 1px -1px 0, /* 右上、左下 */
+    black 0px 1px 0, black 0 -1px 0, /* 右、左*/
+    black -1px 0 0, black 1px 0 0; /* 上、下 */
+}
+.fa-star-o {
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+}
+
 /**** 問題集モーダル****/
 
 #workbook-new-form-modal {
@@ -109,7 +126,7 @@ footer {
   visibility: hidden;
 }
 .show-answer-workbook {
-  
+
 }
 
 

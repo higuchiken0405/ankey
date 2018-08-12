@@ -35,7 +35,8 @@
             <%= link_to "覚えた", memories_path(question_answer_id: question_answer.id, workbook_id: @workbook.id),
                       method: :post, class: "btn btn-danger btn-remenber col-md-1" %>
           <% else %>
-            <%= link_to "忘れた", memories_path(question_answer_id: question_answer.id, workbook_id: @workbook.id), method: :delete, class: "btn btn-success col-md-1" %>
+            <%= link_to "忘れた", memories_path(question_answer_id: question_answer.id, workbook_id: @workbook.id),
+                      method: :delete, class: "btn btn-success col-md-1" %>
           <% end %>
         <div class="list-workbook-show col-md-1">
           <%= question_answer.user_id %>

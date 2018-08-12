@@ -13,10 +13,13 @@
 
         <div class="col-md-8">
           <% if @user == current_user %>
-            <div class="btn btn-block btn-info work-new-form-show-btn">問題集作成</div>
+            <div class="btn btn-block btn-info work-new-form-show-btn">
+              問題集作成
+            </div>
             <%= render 'workbooks/workbook_form' %>
           <% end %>
             <div class="row">
+              <h3>ユーザー問題集一覧</h3>
               <% @workbooks.each do |workbook| %>
                 <% if workbook.user_id == @user.id %>
                   <div class="user-show-workbook-title col-md-4">
@@ -37,7 +40,30 @@
         </div>
 
       </div>
-
+      <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-8">
+          <h3>お気に入り問題集一覧</h3>
+        <% @favorite_workbooks.each do |workbook| %>
+            <div class="user-show-workbook-title col-md-4">
+              <%= link_to "#{workbook.title}", workbook_path(workbook.id) %>
+            </div>
+            <div class="user-show-workbook-overview col-md-5">
+              <%= workbook.overview %>
+            </div>
+            <div class="col-md-1">
+              <%= link_to "#{workbook.user.name}", user_path(workbook.user_id) %>
+            </div>
+            <div class="col-md-1">
+              <%= link_to "スライド", "/workbooks/#{workbook.id}/slider?display=1", class: 'btn btn-info' %>
+            </div>
+            <div class="col-md-1">
+              <%= link_to "ランダム", "/workbooks/#{workbook.id}/slider?display=2", class: 'btn btn-warning' %>
+            </div>
+        <% end %>
+      </div>
+      </div>
     </div>
   </div>
 </div>

@@ -18,7 +18,7 @@ class WorkbooksController < ApplicationController
   def index
     # 問題集作成フォーム用のインスタンス
     @workbook = Workbook.new
-    # 問題集一覧表示のため、全ての要素を取得し、代入
+    # 問題集一覧表示のため、全ての要素を取得
     @workbooks = Workbook.all
     # ransckによる検索
     @search = Workbook.ransack(params[:q])
@@ -31,9 +31,6 @@ class WorkbooksController < ApplicationController
     # 問題・答え作成フォーム用のインスタンス
     @question_answer = QuestionAnswer.new
 
-    @question_answers = @workbook.question_answers
-    @memory_question_answers = current_user.memory_question_answers.select {|qa1| qa1.workbook_id = params[:id]}
-    @qa = @question_answers - @memory_question_answers
   end
   # スライドページ表示
   def slider

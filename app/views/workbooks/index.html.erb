@@ -15,16 +15,34 @@
             <% end %>
 
         <div class="workbooks">
+          <div class="col-md-2">お気に入り</div>
           <div class="col-md-2">題名</div>
           <div class="col-md-2">概要</div>
           <div class="col-md-2">作成者ID</div>
           <div class="col-md-2">作成者名</div>
           <div class="col-md-1">スライド</div>
-          <div class="col-md-1 col-md-offset-2">ランダム</div>
+          <div class="col-md-1">ランダム</div>
 
           <% if @result.any? %>
           <% @result.each do |result| %>
           <div class="row">
+            <% if result.user.id != current_user.id %>
+              <div class="col-md-2">
+                <% if !result.favorite_users.include?(current_user) %>
+                  <%= link_to favorites_path(workbook_id: result.id), method: :post do %>
+                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                  <% end %>
+                <% else %>
+                  <%= link_to favorites_path(workbook_id: result.id), method: :delete do %>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                  <% end %>
+                <% end %>
+              </div>
+            <% else %>
+              <div class="col-md-2">
+                <p>My workbook</p>
+              </div>
+            <% end %>
             <div class="col-md-2">
               <%=link_to "#{result.title}", workbook_path(id: result.id) %>
             </div>
@@ -40,7 +58,7 @@
             <div class="col-md-1">
               <%= link_to "スライド", "/workbooks/#{result.id}/slider?display=1", class: 'btn btn-info' %>
             </div>
-            <div class="col-md-1 col-md-offset-2">
+            <div class="col-md-1">
               <%= link_to "ランダム", "/workbooks/#{result.id}/slider?display=2", class: 'btn btn-warning' %>
             </div>
           </div>
@@ -49,6 +67,17 @@
             <% if @result.nil? %>
             <% @workbooks.each do |workbook| %>
             <div class="row">
+              <div class="col-md-2">
+                <% if !workbook.favorite_users.include?(current_user) %>
+                  <%= link_to favorites_path(workbook_id: workbook.id), method: :post do %>
+                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                  <% end %>
+                <% else %>
+                  <%= link_to avorites_path(workbook_id: workbook.id), method: :delete do %>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                  <% end %>
+                <% end %>
+              </diV>
               <div class="col-md-2">
                 <%=link_to "#{workbook.title}", workbook_path(id: workbook.id) %>
               </div>
@@ -64,7 +93,7 @@
               <div class="col-md-1">
                 <%= link_to "スライド", "/workbooks/#{workbook.id}/slider", class: 'btn btn-info' %>
               </div>
-              <div class="col-md-1 col-md-offset-2">
+              <div class="col-md-1">
                 <%= link_to "ランダム", "/workbooks/#{workbook.id}/slider?display=2", class: 'btn btn-warning' %>
               </div>
 
