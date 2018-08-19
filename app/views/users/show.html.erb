@@ -49,13 +49,13 @@
             <div class="user-show-workbook-title col-md-4">
               <%= link_to "#{workbook.title}", workbook_path(workbook.id) %>
             </div>
-            <div class="user-show-workbook-overview col-md-5">
+            <div class="user-show-workbook-overview col-md-4">
               <%= workbook.overview %>
             </div>
             <div class="col-md-1">
               <%= link_to "#{workbook.user.name}", user_path(workbook.user_id) %>
             </div>
-            <div class="col-md-1">
+            <div class="col-md-2">
               <%= link_to "スライド", "/workbooks/#{workbook.id}/slider?display=1", class: 'btn btn-info' %>
             </div>
             <div class="col-md-1">

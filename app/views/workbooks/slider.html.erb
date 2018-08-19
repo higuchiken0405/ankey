@@ -3,7 +3,7 @@
     <div class="container-workbook-slider">
 
       <div class="container-question">
-        <div class="question">問題 <%= @display %></div>
+        <div class="question">問題</div>
           <% @workbook_question_answers.each_with_index do |question_answer, index| %>
             <% if index == 0 %>
               <div class="slide active-slide">
@@ -36,11 +36,15 @@
           <% @workbook_question_answers.each_with_index do |question_answer, index| %>
             <% if index == 0 %>
               <div class="slide active-slide">
-                <%= simple_format(question_answer.answer) %>
+                <p><%= simple_format(question_answer.answer) %></p>
+                <%= link_to "覚えた", memories_path(question_answer_id: question_answer.id, workbook_id: @workbook.id),
+                          method: :post, class: "btn btn-danger btn-remenber" %>
               </div>
             <% else %>
               <div class="slide">
-                <%= simple_format(question_answer.answer) %>
+                <p><%= simple_format(question_answer.answer) %></p>
+                <%= link_to "覚えた", memories_path(question_answer_id: question_answer.id, workbook_id: @workbook.id),
+                          method: :post, class: "btn btn-danger btn-remenber" %>
               </div>
             <% end %>
           <% end %>

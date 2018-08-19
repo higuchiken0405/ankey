@@ -7,5 +7,6 @@ class QuestionAnswer < ApplicationRecord
   belongs_to :user
   belongs_to :workbook
   has_many :memories
-  has_many :memory_users, through: :memories, source: 'user' 
+  has_many :memory_users, through: :memories, source: 'user'
+
 end

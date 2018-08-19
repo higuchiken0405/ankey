@@ -14,7 +14,7 @@ class QuestionAnswersController < ApplicationController
   end
 
   def update
-    
+
   end
 
   def destory

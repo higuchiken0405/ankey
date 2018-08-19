@@ -7,7 +7,7 @@ class MemoriesController < ApplicationController
     memory.user_id = current_user.id
     memory.question_answer_id = params[:question_answer_id]
     if memory.save
-      redirect_to workbook_path(id: params[:workbook_id])
+      redirect_back(fallback_location: root_path)
     else
       flash[:danger] = "失敗しました"
       redirect_to workbook_path(id: params[:workbook_id])

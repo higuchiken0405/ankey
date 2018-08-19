@@ -30,8 +30,9 @@ class WorkbooksController < ApplicationController
     @workbook = Workbook.find_by(id: params[:id])
     # 問題・答え作成フォーム用のインスタンス
     @question_answer = QuestionAnswer.new
-
   end
+
+
   # スライドページ表示
   def slider
     @workbook = Workbook.find_by(id: params[:id])
@@ -41,8 +42,8 @@ class WorkbooksController < ApplicationController
     # 覚えた(Memoryモデルに入っている)問答は除去する
     # 問題集の問答一覧を取得
     @question_answers = @workbook.question_answers
-    # 現在のユーザーが覚えた問答一覧を取得
-    @memory_question_answers = current_user.memory_question_answers.select {|qa1| qa1.workbook_id = params[:id]}
+    # 現在のユーザーが覚えた問答一覧を取得(現在の問題集IDの)
+    @memory_question_answers = current_user.memory_question_answers.select {|qa| qa.workbook_id = params[:id]}
     # URLのクエリパラメータによって表示形式を変える(1=順列　2=ランダム)
     @display = params[:display].to_i
     if @display == 1
@@ -55,6 +56,11 @@ class WorkbooksController < ApplicationController
      # URLのクエリパラメータを1か2以外で直接入力された場合
      @workbook_question_answers = @workbook.question_answers
    end
+  end
+
+  def question_answers_to_csv
+      @workbook = Workbook.find_by(id: params[:id])
+      @question_answers = @workbook.question_answers
   end
 
 private
