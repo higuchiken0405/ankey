@@ -1,5 +1,16 @@
 class QuestionAnswersController < ApplicationController
 
+  def index
+    @workbook = Workbook.find_by(id: params[:workbook_id])
+    @question_answers = @workbook.question_answers
+      respond_to do |format|
+        format.html
+        format.csv do
+          send_data render_to_string, filename: "#{@workbook.title}.csv", type: :csv
+        end
+      end
+  end
+
   def create
       @workbook = Workbook.find_by(id: params[:workbook_id])
       @question_answer = QuestionAnswer.new(question_answer_params)

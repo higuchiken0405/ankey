@@ -8,6 +8,7 @@
           <div class="btn btn-info question-answer-form-show-btn">問題・答えを作成</div>
         <% end %>
         <%= link_to "戻る", :back, class: "btn btn-info" %>
+        <%= link_to "CSV出力", workbook_question_answers_path(format: :csv, workbook_id: @workbook.id), class: 'btn btn-primary' %> 
 
         <%= render 'workbooks/question_answer_form' %>
 
