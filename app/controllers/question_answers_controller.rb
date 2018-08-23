@@ -14,7 +14,7 @@ class QuestionAnswersController < ApplicationController
   def import
     @workbook = Workbook.find_by(id: params[:workbook_id])
     QuestionAnswer.import(params[:file], @workbook.id, current_user.id)
-    redirect_to workbooks_path, notice: "CSVをインポートしました"
+    redirect_to workbook_path(@workbook)
   end
 
 
@@ -35,7 +35,12 @@ class QuestionAnswersController < ApplicationController
 
   end
 
-  def destory
+  # 問題集削除
+  def destroy
+    @workbook = Workbook.find_by(id: params[:workbook_id])
+    @question_answer = QuestionAnswer.find_by(id: params[:id])
+    @question_answer.destroy
+    redirect_to workbook_path(@workbook)
   end
 private
   def question_answer_params

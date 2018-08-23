@@ -4,7 +4,7 @@ class Workbook < ApplicationRecord
   validates :title, presence: true
   validates :overview, presence: true
   belongs_to :user
-  has_many :question_answers
-  has_many :favorites
-  has_many :favorite_users, through: :favorites, source: 'user'
+  has_many :question_answers, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+  has_many :favorite_users, through: :favorites, source: 'user', dependent: :destroy
 end

@@ -10,9 +10,11 @@
         <%= link_to "戻る", :back, class: "btn btn-info" %>
         <%= link_to "CSV出力", workbook_question_answers_path(format: :csv, workbook_id: @workbook.id), class: 'btn btn-primary' %>
 
-        <%= form_tag import_workbook_question_answers_path(workbook_id: @workbook.id), multipart: true do %>
-          <%= file_field_tag :file %>
-          <%= submit_tag "CSV入力" %>
+        <% if current_user.id == @workbook.user_id %>
+          <%= form_tag import_workbook_question_answers_path(workbook_id: @workbook.id), multipart: true do %>
+            <%= file_field_tag :file %>
+            <%= submit_tag "CSV入力" %>
+          <% end %>
         <% end %>
 
 

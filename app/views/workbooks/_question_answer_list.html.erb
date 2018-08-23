@@ -4,7 +4,7 @@
     <div class="data-name border-right col-md-1">　</div>
     <div class="data-name border-right col-md-1">暗記チェック</div>
     <div class="data-name border-right data-3 col-md-1">作成者ID</div>
-    <div class="data-name col-md-1">問題集ID</div>
+    <div class="data-name col-md-1">削除</div>
   </div>
     <% @workbook.question_answers.each_with_index do |question_answer, index| %>
       <div class="row row-workbook-show">
@@ -42,7 +42,7 @@
           <%= question_answer.user_id %>
         </div>
         <div class="list-workbook-show col-md-1">
-          <%= question_answer.workbook_id %>
+          <%= link_to "削除", workbook_question_answer_path(@workbook, question_answer), method: :delete, data: { confirm: "本当に削除しますか？" }  %>
         </div>
       </div>
     <% end %>

@@ -1,8 +1,5 @@
 class WorkbooksController < ApplicationController
-  # 問題集の作成ページ表示
-  def new
-    @workbook = Workbook.new
-  end
+
   # 作成ページのフォーム情報を処理
   def create
     @workbook = current_user.workbooks.new(workbook_params)
@@ -14,6 +11,15 @@ class WorkbooksController < ApplicationController
       flash[:danger] = "問題集作成に失敗しました"
     end
   end
+  # 問題集削除
+  def destroy
+    @workbook = Workbook.find_by(id: params[:id])
+    @workbook.destroy
+    redirect_to workbooks_path
+  end
+
+
+
   # 問題集一覧ページ表示
   def index
     # 問題集作成フォーム用のインスタンス
@@ -25,7 +31,7 @@ class WorkbooksController < ApplicationController
     @result = @search.result
   end
 
-  # 問題集の詳細ページ表示
+  # 問題集の詳細ページ表示(問題・答え一覧)
   def show
     @workbook = Workbook.find_by(id: params[:id])
     # 問題・答え作成フォーム用のインスタンス
@@ -47,7 +53,7 @@ class WorkbooksController < ApplicationController
     # URLのクエリパラメータによって表示形式を変える(1=順列　2=ランダム)
     @display = params[:display].to_i
     if @display == 1
-      # 問題集の問答一覧から覚えた問答一覧を除外
+      # 問題集の問答　一覧から覚えた問答一覧を除外
       @workbook_question_answers = @question_answers - @memory_question_answers
    elsif @display == 2
       # 問題集の問答一覧から覚えた問答一覧を除外し、シャッフル
@@ -58,10 +64,6 @@ class WorkbooksController < ApplicationController
    end
   end
 
-  def question_answers_to_csv
-      @workbook = Workbook.find_by(id: params[:id])
-      @question_answers = @workbook.question_answers
-  end
 
 private
   def workbook_params
