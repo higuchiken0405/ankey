@@ -1,7 +1,7 @@
 
 
 CSV.generate do |csv|
-  column_names = %w(問題 答え)
+  column_names = %w(question answer)
   csv << column_names
   @question_answers.each do |qa|
     column_values = [

@@ -11,6 +11,13 @@ class QuestionAnswersController < ApplicationController
       end
   end
 
+  def import
+    @workbook = Workbook.find_by(id: params[:workbook_id])
+    QuestionAnswer.import(params[:file], @workbook.id, current_user.id)
+    redirect_to workbooks_path, notice: "CSVをインポートしました"
+  end
+
+
   def create
       @workbook = Workbook.find_by(id: params[:workbook_id])
       @question_answer = QuestionAnswer.new(question_answer_params)

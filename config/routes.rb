@@ -6,7 +6,11 @@ Rails.application.routes.draw do
   get "/signup",  to: "users#new"
   resources :users
   resources :workbooks do
-    resources :question_answers
+    resources :question_answers do
+      collection do
+        post :import
+      end
+    end
   end
   get "/workbooks/:id/slider", to: "workbooks#slider"
 
