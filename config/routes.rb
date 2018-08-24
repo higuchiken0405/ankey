@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
 
+  get 'calendar/index'
   root "pages#index"
   get "/signup",  to: "users#new"
-  resources :users
+  resources :users do
+    resources :calendar
+  end
   resources :workbooks do
     resources :question_answers do
       collection do

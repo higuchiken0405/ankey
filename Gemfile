@@ -44,6 +44,9 @@ gem 'pry-byebug'
 gem 'pry-stack_explorer'
 gem 'ransack'
 gem 'font-awesome-rails'
+gem 'momentjs-rails'
+gem 'fullcalendar-rails'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
