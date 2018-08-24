@@ -3,7 +3,7 @@
     <div class="data-name data-2 col-md-3">答え</div>
     <div class="data-name border-right col-md-1">　</div>
     <div class="data-name border-right col-md-1">暗記チェック</div>
-    <div class="data-name border-right data-3 col-md-1">作成者ID</div>
+    <div class="data-name border-right data-3 col-md-1">編集</div>
     <div class="data-name col-md-1">削除</div>
   </div>
     <% @workbook.question_answers.each_with_index do |question_answer, index| %>
@@ -38,12 +38,15 @@
             <%= link_to "忘れた", memories_path(question_answer_id: question_answer.id, workbook_id: @workbook.id),
                       method: :delete, class: "btn btn-success col-md-1" %>
           <% end %>
+
+        <% if current_user?(question_answer.user) %>
         <div class="list-workbook-show col-md-1">
-          <%= question_answer.user_id %>
+          <%= link_to "編集", edit_workbook_question_answer_path(@workbook, question_answer) %>
         </div>
         <div class="list-workbook-show col-md-1">
           <%= link_to "削除", workbook_question_answer_path(@workbook, question_answer), method: :delete, data: { confirm: "本当に削除しますか？" }  %>
         </div>
+        <% end %>
       </div>
     <% end %>
 </div>

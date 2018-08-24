@@ -11,6 +11,22 @@ class WorkbooksController < ApplicationController
       flash[:danger] = "問題集作成に失敗しました"
     end
   end
+
+  def edit
+    @workbook = Workbook.find_by(id: params[:id])
+  end
+
+  # 問題集編集
+  def update
+    @workbook = Workbook.find_by(id: params[:id])
+    if @workbook.update_attributes(workbook_params)
+      redirect_to workbooks_path
+    else
+      flash[:notice] = "編集に失敗しました"
+      render :index
+    end
+  end
+
   # 問題集削除
   def destroy
     @workbook = Workbook.find_by(id: params[:id])

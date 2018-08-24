@@ -31,8 +31,19 @@ class QuestionAnswersController < ApplicationController
      end
   end
 
+  def edit
+    @workbook = Workbook.find_by(id: params[:workbook_id])
+    @question_answer = QuestionAnswer.find_by(id: params[:id])
+  end
   def update
-
+    @workbook = Workbook.find_by(id: params[:workbook_id])    
+    @question_answer = QuestionAnswer.find_by(id: params[:id])
+    if @question_answer.update_attributes(question_answer_params)
+      redirect_to workbook_path(@workbook)
+    else
+      flash[:notice] = "編集に失敗しました"
+      render :index
+    end
   end
 
   # 問題集削除

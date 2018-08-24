@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'favorites/create'
-  get 'favorites/destroy'
   root "pages#index"
   get "/signup",  to: "users#new"
   resources :users

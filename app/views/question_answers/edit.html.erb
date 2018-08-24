@@ -1,0 +1,14 @@
+
+        <%= form_for @question_answer, url: workbook_question_answer_path(@workbook, @question_answer) do |f| %>
+          <div class="row question-answer-form">
+            <div class="form-group col-md-6">
+              <%= f.label :question, "問題" %>
+              <%= f.text_area :question, class: 'question-form' %>
+            </div>
+            <div class="form-group col-md-6">
+              <%= f.label :answer, "答え" %>
+              <%= f.text_area :answer, class: 'answer-form' %>
+            </div>
+          </div>
+              <%= f.submit "登録", class: 'btn btn-info' %>
+        <% end %>

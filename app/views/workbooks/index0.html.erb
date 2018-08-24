@@ -27,7 +27,7 @@
           <% if @result.any? %>
           <% @result.each do |result| %>
           <div class="row">
-            <% if !current_user?(result.user) %>
+            <% if result.user.id != current_user.id %>
               <div class="col-md-2">
                 <% if !result.favorite_users.include?(current_user) %>
                   <%= link_to favorites_path(workbook_id: result.id), method: :post do %>
@@ -51,16 +51,16 @@
               <%= simple_format(result.overview) %>
             </div>
             <div class="col-md-2">
-              <%=link_to "#{result.user.name}", user_path(id: result.user_id) %>
+              <%=link_to "#{result.user.name}", user_path(result) %>
             </div>
             <div class="col-md-1">
               <%= link_to "スライド", "/workbooks/#{result.id}/slider?display=1", class: 'btn btn-info' %>
             </div>
             <div class="col-md-1">
               <%= link_to "ランダム", "/workbooks/#{result.id}/slider?display=2", class: 'btn btn-warning' %>
-            <% if current_user?(result.user) %>
+            <% if result.user_id == current_user.id %>
               <div class="col-md-1">
-                <%= link_to "編集", edit_workbook_path(result), class: "btn btn-success"%>
+                <%= link_to "編集", workbook_path(result), method: :put, class: 'btn btn-info' %>
               </div>
               <div class="col-md-1">
                 <%= link_to "削除", workbook_path(result), method: :delete, class: 'btn btn-danger' %>
@@ -70,6 +70,47 @@
           </div>
           <% end %>
           <% end %>
+
+            <% if @result.nil? %>
+            <% @workbooks.each do |workbook| %>
+            <div class="row">
+              <div class="col-md-2">
+                <% if !workbook.favorite_users.include?(current_user) %>
+                  <%= link_to favorites_path(workbook_id: workbook.id), method: :post do %>
+                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                  <% end %>
+                <% else %>
+                  <%= link_to avorites_path(workbook_id: workbook.id), method: :delete do %>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                  <% end %>
+                <% end %>
+              </diV>
+              <div class="col-md-2">
+                <%=link_to "#{workbook.title}", workbook_path(workbook) %>
+              </div>
+              <div class="col-md-2">
+                <%= simple_format(workbook.overview) %>
+              </div>
+              <div class="col-md-2">
+                <%=link_to "#{workbook.user.name}", user_path(workbook) %>
+              </div>
+              <div class="col-md-1">
+                <%= link_to "スライド", "/workbooks/#{workbook.id}/slider", class: 'btn btn-info' %>
+              </div>
+              <div class="col-md-1">
+                <%= link_to "ランダム", "/workbooks/#{workbook.id}/slider?display=2", class: 'btn btn-warning' %>
+              </div>
+              <% if workbook.id == current_user.id %>
+                <div class="col-md-1">
+                  <%= link_to "編集", workbook_path(workbook), method: :put, remote: ture, class: 'btn btn-danger' %>
+                </div>
+                <div class="col-md-1">
+                  <%= link_to "削除", workbook_path(workbook), method: :delete, class: 'btn btn-success'%>
+                </div>
+              <% end %>
+            </div>
+            <% end %>
+            <% end %>
         </div>
     </div>
   </div>
@@ -82,13 +123,6 @@ $(function(){
   });
   $(document).on('click', '.close-modal', function(){
     $('#workbook-new-form-modal').fadeOut();
-  });
-
-  $(document).on('click', '.work-new-form-edit-show-btn', function(){
-    $('#workbook-edit-form-modal').fadeIn();
-  });
-  $(document).on('click', '.close-modal', function(){
-    $('#workbook-edit-form-modal').fadeOut();
   });
 });
 </script>
