@@ -32,10 +32,10 @@ class ImageUploader < CarrierWave::Uploader::Base
    # process :resize_to_limit => [100, 100]
  # end
 
- version :thumb30 do
-   process :resize_to_limit => [30, 30]
+ version :thumb50 do
+   process :resize_to_limit => [50, 50]
  end
- # @user.imagre.thum30.url で取り出せる
+ # @user.imagre.thum50.url で取り出せる
 
  # jpg,jpeg,gif,pngしか受け付けない
  def extension_white_list

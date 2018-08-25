@@ -7,7 +7,7 @@ class QuestionAnswer < ApplicationRecord
   belongs_to :user
   belongs_to :workbook
   has_many :memories, dependent: :destroy
-  has_many :memory_users, through: :memories, source: 'user', dependent: :destroy
+  has_many :memory_users, through: :memories, source: 'user'
 
   def self.import(file, workbook_id, user_id)
     CSV.foreach(file.path, headers: true) do |row|

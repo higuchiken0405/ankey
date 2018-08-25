@@ -13,8 +13,12 @@ class QuestionAnswersController < ApplicationController
 
   def import
     @workbook = Workbook.find_by(id: params[:workbook_id])
-    QuestionAnswer.import(params[:file], @workbook.id, current_user.id)
-    redirect_to workbook_path(@workbook)
+    if params[:file].present?
+      QuestionAnswer.import(params[:file], @workbook.id, current_user.id)
+      redirect_to workbook_path(@workbook)
+    else
+      redirect_to workbook_path(@workbook)
+    end
   end
 
 
@@ -36,7 +40,7 @@ class QuestionAnswersController < ApplicationController
     @question_answer = QuestionAnswer.find_by(id: params[:id])
   end
   def update
-    @workbook = Workbook.find_by(id: params[:workbook_id])    
+    @workbook = Workbook.find_by(id: params[:workbook_id])
     @question_answer = QuestionAnswer.find_by(id: params[:id])
     if @question_answer.update_attributes(question_answer_params)
       redirect_to workbook_path(@workbook)
