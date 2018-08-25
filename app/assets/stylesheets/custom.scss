@@ -163,7 +163,7 @@ footer {
     }
 
     .mybooks-show {
-      margin: 0 -80px;
+      margin: 0 0px;
       font-size: 16px;
       display: flex;
       flex-wrap: wrap;
@@ -363,6 +363,14 @@ footer {
 .slide-btn {
   margin: 20px 0;
 }
+
+
+/*** カレンダー ***/
+.container-calendar {
+  padding-top: 80px;
+}
+
+
 
 /* ★★★★　デバック表示　★★★★　*/
 .debug_dump {
