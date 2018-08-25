@@ -1,34 +1,37 @@
-<div class="wrapper wrapper-workbook-index">
+<div class="wrapper">
   <div class="container text-center container-background">
     <div class="container-workbook-index">
-      <h1>問題集</h1>
-        <div class="workbook-new">
-            <div class="btn btn-lg btn-primary work-new-form-show-btn">問題集作成</div>
-            <%= render 'workbooks/workbook_form' %>
 
-            <%= search_form_for @search do |f| %>
-              <div class="form-group">
-                <%= f.label :title_or_overview_cont, "タイトル・概要検索" %>
-                <%= f.text_field :title_or_overview_cont, class: "form-control" %>
-              </div>
-              <div class="actions"><%= f.submit "検索" %></div>
-            <% end %>
+      <h1><span>問題集</span></h1>
+      <div class="workbook-index-form">
+        <div class="btn btn-lg btn-primary work-new-form-show-btn">問題集作成</div>
+        <%= render 'workbooks/workbook_form' %>
+      </div>
+      <div class="workbook-index-search">
+        <%= search_form_for @search do |f| %>
+          <div class="form-group">
+            <%= f.label :title_or_overview_cont, "タイトル・概要検索" %>
+            <%= f.text_field :title_or_overview_cont, class: "form-control" %>
+          </div>
+          <div class="actions"><%= f.submit "検索" %></div>
+        <% end %>
+      </div>
+      <div class="row workbook-index">
+          <div class="col-md-1 workbooks-data-name">お気に</div>
+          <div class="col-md-2 workbooks-data-name">題名</div>
+          <div class="col-md-2 workbooks-data-name">概要</div>
+          <div class="col-md-3 workbooks-data-name">作成者名</div>
+          <div class="col-md-1 workbooks-data-name">スライド</div>
+          <div class="col-md-1 workbooks-data-name">ランダム</div>
+          <div class="col-md-1 workbooks-data-name">編集</div>
+          <div class="col-md-1 workbooks-data-name">削除</div>
+      </div>
 
-        <div class="workbooks">
-          <div class="col-md-2">お気に入り</div>
-          <div class="col-md-2">題名</div>
-          <div class="col-md-2">概要</div>
-          <div class="col-md-2">作成者名</div>
-          <div class="col-md-1">スライド</div>
-          <div class="col-md-1">ランダム</div>
-          <div class="col-md-1">編集</div>
-          <div class="col-md-1">削除</div>
-
-          <% if @result.any? %>
-          <% @result.each do |result| %>
-          <div class="row">
+      <% if @result.any? %>
+        <% @result.each do |result| %>
+          <div class="row workbook-index">
+            <div class="col-md-1 workbooks-data">
             <% if !current_user?(result.user) %>
-              <div class="col-md-2">
                 <% if !result.favorite_users.include?(current_user) %>
                   <%= link_to favorites_path(workbook_id: result.id), method: :post do %>
                     <i class="fa fa-star-o" aria-hidden="true"></i>
@@ -38,39 +41,50 @@
                     <i class="fa fa-star" aria-hidden="true"></i>
                   <% end %>
                 <% end %>
-              </div>
             <% else %>
-              <div class="col-md-2">
                 <p>-</p>
-              </div>
             <% end %>
-            <div class="col-md-2">
+            </div>
+            <div class="col-md-2 workbooks-data">
               <%=link_to "#{result.title}", workbook_path(result) %>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 workbooks-data">
               <%= simple_format(result.overview) %>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 workbooks-data">
+              <%= link_to user_path(id: result.user_id) do %>
+                <%= image_tag result.user.image.url, class: 'workbooks-user-img' %>
+              <% end %>
+            </div>
+            <div class="col-md-1 workbooks-data-left-border-none">
               <%=link_to "#{result.user.name}", user_path(id: result.user_id) %>
             </div>
-            <div class="col-md-1">
-              <%= link_to "スライド", "/workbooks/#{result.id}/slider?display=1", class: 'btn btn-info' %>
+            <div class="col-md-1 workbooks-data">
+              <%= link_to "ｽﾗｲﾄﾞ", "/workbooks/#{result.id}/slider?display=1", class: 'btn btn-info' %>
             </div>
-            <div class="col-md-1">
-              <%= link_to "ランダム", "/workbooks/#{result.id}/slider?display=2", class: 'btn btn-warning' %>
+            <div class="col-md-1 workbooks-data">
+              <%= link_to "ﾗﾝﾀﾞﾑ", "/workbooks/#{result.id}/slider?display=2", class: 'btn btn-warning' %>
+            </div>
             <% if current_user?(result.user) %>
-              <div class="col-md-1">
+              <div class="col-md-1 workbooks-data">
                 <%= link_to "編集", edit_workbook_path(result), class: "btn btn-success"%>
               </div>
-              <div class="col-md-1">
+              <div class="col-md-1 workbooks-data">
                 <%= link_to "削除", workbook_path(result), method: :delete, class: 'btn btn-danger', data: { confirm: "本当に削除しますか？" } %>
               </div>
+            <% else %>
+              <div class="col-md-1 workbooks-data">
+                -
+              </div>
+              <div class="col-md-1 workbooks-data">
+                -
+              </div>
             <% end %>
-            </div>
           </div>
           <% end %>
           <% end %>
-        </div>
+
+
     </div>
   </div>
 </div>
