@@ -2,7 +2,9 @@
 <html>
   <%= render 'layouts/head' %>
   <body>
+    <% if logged_in? %>
     <%= render 'layouts/header' %>
+    <% end %>
     <%= render 'layouts/alert' %>
     <%= yield %>
     <!-- <%= debug(params) if Rails.env.development? %> -->

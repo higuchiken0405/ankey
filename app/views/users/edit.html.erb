@@ -1,33 +1,32 @@
-<div class="wrapper-users-edit">
-  <div class="container text-center">
+<div class="wrapper">
+  <div class="container text-center container-background">
   <h1>ユーザー編集</h1>
-    <div class="row">
+  <div class="row user-edit-form">
       <%= form_for @user do |f| %>
         <div class="form-group">
           <%= f.label :"アイコン" %><br>
           <%= f.file_field :image %>
-        </div>
+        </div><br>
         <div class="form-group">
           <%= f.label :"名前" %><br>
           <%= f.text_field :name %>
-        </div>
+        </div><br>
         <div class="form-group">
           <%= f.label :"メールアドレス" %><br>
           <%= f.email_field :email %>
-        </div>
+        </div><br>
         <div class="form-group">
           <%= f.label :"パスワード" %><br>
           <%= f.password_field :password %>
-        </div>
+        </div><br>
         <div class="form-group">
           <%= f.label :"パスワード確認" %><br>
           <%= f.password_field :passwrod %>
-        </div>
+        </div><br>
 
         <%= f.submit "編集登録", class: "btn btn-info" %>
         <%= link_to "ユーザーページへ戻る", user_path(id: params[:id]) %>
       <% end %>
-    </div>
-
+  </div>
   </div>
 </div>
