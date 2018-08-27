@@ -1,19 +1,19 @@
 <div class="wrapper wrapper-workbook-show">
   <div class="container text-center container-background">
     <div class="container-workbook-show">
-      <h1><%= @workbook.title %> ユーザーid<%= @workbook.user_id %></h1>
-        <%= link_to "スライドへ", "#{@workbook.id}/slider?display=1", class:'btn btn-info slide-start-btn' %>
-        <%= link_to "ランダム表示", "#{@workbook.id}/slider?display=2", class:'btn btn-warning slide-start-btn' %>
+      <h1><%= @workbook.title %></h1>
+        <%= link_to "slide", "#{@workbook.id}/slider?display=1", class:'btn btn-info slide-start-btn' %>
+        <%= link_to "random", "#{@workbook.id}/slider?display=2", class:'btn btn-warning slide-start-btn' %>
         <% if @workbook.user_id == current_user.id %>
           <div class="btn btn-info question-answer-form-show-btn">問題・答えを作成</div>
         <% end %>
-        <%= link_to "戻る", :back, class: "btn btn-info" %>
-        <%= link_to "CSV出力", workbook_question_answers_path(format: :csv, workbook_id: @workbook.id), class: 'btn btn-primary' %>
-        
+        <%= link_to "back", :back, class: "btn btn-info" %>
+        <%= link_to "csv export", workbook_question_answers_path(format: :csv, workbook_id: @workbook.id), class: 'btn btn-primary' %>
+
         <% if current_user?(@workbook.user) %>
           <%= form_tag import_workbook_question_answers_path(workbook_id: @workbook.id), multipart: true do %>
             <%= file_field_tag :file %>
-            <%= submit_tag "CSV入力" %>
+            <%= submit_tag "csv import" %>
           <% end %>
         <% end %>
 

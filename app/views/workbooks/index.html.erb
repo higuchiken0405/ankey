@@ -2,35 +2,32 @@
   <div class="container text-center container-background">
     <div class="container-workbook-index">
 
-      <h1><span>問題集</span></h1>
+      <h1><span>Workbooks</span></h1>
       <div class="workbook-index-form">
-        <div class="btn btn-lg btn-primary work-new-form-show-btn">問題集作成</div>
+        <div class="btn btn-lg btn-primary work-new-form-show-btn">create workbbok</div>
         <%= render 'workbooks/workbook_form' %>
       </div>
-      <div class="workbook-index-search">
+      <div class="workbook-index-search text-center">
         <%= search_form_for @search do |f| %>
           <div class="form-group">
-            <%= f.label :title_or_overview_cont, "タイトル・概要検索" %>
-            <%= f.text_field :title_or_overview_cont, class: "form-control" %>
+            <%= f.label :title_or_overview_cont, "title  or  overview" %>
+            <%= f.text_field :title_or_overview_cont, class: "form-control search-form" %>
           </div>
-          <div class="actions"><%= f.submit "検索" %></div>
+          <div class="actions"><%= f.submit "search" %></div>
         <% end %>
       </div>
       <div class="row workbook-index">
-          <div class="col-md-1 workbooks-data-name">お気に</div>
-          <div class="col-md-2 workbooks-data-name">題名</div>
-          <div class="col-md-2 workbooks-data-name">概要</div>
-          <div class="col-md-3 workbooks-data-name">作成者名</div>
-          <div class="col-md-1 workbooks-data-name">スライド</div>
-          <div class="col-md-1 workbooks-data-name">ランダム</div>
-          <div class="col-md-1 workbooks-data-name">編集</div>
-          <div class="col-md-1 workbooks-data-name">削除</div>
+          <div class="col-md-1 col-md-offset-2 workbooks-data-name">favorite</div>
+          <div class="col-md-2 workbooks-data-name">Title</div>
+          <div class="col-md-2 workbooks-data-name">Overview</div>
+          <div class="col-md-3 workbooks-data-name">User Name</div>
+          <div class="col-md-1 workbooks-data-name">Menu</div>
       </div>
 
       <% if @result.any? %>
         <% @result.each do |result| %>
           <div class="row workbook-index">
-            <div class="col-md-1 workbooks-data">
+            <div class="col-md-1 col-md-offset-2 workbooks-data">
             <% if !current_user?(result.user) %>
                 <% if !result.favorite_users.include?(current_user) %>
                   <%= link_to favorites_path(workbook_id: result.id), method: :post do %>
@@ -60,30 +57,29 @@
               <%=link_to "#{result.user.name}", user_path(id: result.user_id) %>
             </div>
             <div class="col-md-1 workbooks-data">
-              <%= link_to "ｽﾗｲﾄﾞ", "/workbooks/#{result.id}/slider?display=1", class: 'btn btn-info' %>
+              <div class="btn btn-info workbook-menu-btn">
+                Open
+              </div>
+              <div class=" workbooks-menu-list">
+                <ul>
+                  <li><%= link_to "Slide", "/workbooks/#{result.id}/slider?display=1", class: 'btn' %></li>
+                  <li><%= link_to "Random", "/workbooks/#{result.id}/slider?display=2", class: 'btn' %></li>
+                  <% if current_user?(result.user) %>
+                    <li><%= link_to "Edit", edit_workbook_path(result), class: "btn"%></li>
+                  <% else %>
+                    <li>-</li>
+                  <% end %>
+                  <% if current_user?(result.user) %>
+                    <li><%= link_to "Delete", workbook_path(result), method: :delete, class: 'btn', data: { confirm: "本当に削除しますか？" } %></li>
+                  <% else %>
+                    <li>-</li>
+                  <% end %>
+                </ul>
+              </div>
             </div>
-            <div class="col-md-1 workbooks-data">
-              <%= link_to "ﾗﾝﾀﾞﾑ", "/workbooks/#{result.id}/slider?display=2", class: 'btn btn-warning' %>
-            </div>
-            <% if current_user?(result.user) %>
-              <div class="col-md-1 workbooks-data">
-                <%= link_to "編集", edit_workbook_path(result), class: "btn btn-success"%>
-              </div>
-              <div class="col-md-1 workbooks-data">
-                <%= link_to "削除", workbook_path(result), method: :delete, class: 'btn btn-danger', data: { confirm: "本当に削除しますか？" } %>
-              </div>
-            <% else %>
-              <div class="col-md-1 workbooks-data">
-                -
-              </div>
-              <div class="col-md-1 workbooks-data">
-                -
-              </div>
-            <% end %>
           </div>
           <% end %>
         <% end %>
-
     </div>
   </div>
 </div>
@@ -96,12 +92,19 @@ $(function(){
   $(document).on('click', '.close-modal', function(){
     $('#workbook-new-form-modal').fadeOut();
   });
-
-  $(document).on('click', '.work-new-form-edit-show-btn', function(){
-    $('#workbook-edit-form-modal').fadeIn();
-  });
-  $(document).on('click', '.close-modal', function(){
-    $('#workbook-edit-form-modal').fadeOut();
-  });
 });
+$(function(){
+// メニューをクリックすると、メニュー表示
+  $(document).on('click', '.workbook-menu-btn', function(){
+    var $workbookMenu = $(this).next('.workbooks-menu-list');
+    if ( $workbookMenu.css('display') == 'none' ) {
+      $(this).text('Close');
+      $workbookMenu.slideDown();
+    } else {
+      $(this).text('Open');
+      $workbookMenu.slideUp();
+    }
+ });
+});
+
 </script>

@@ -10,14 +10,14 @@
         </div>
         <div class="col-md-5 col-md-offset-1">
           <% if current_user?(@user) %>
-            <%= link_to "ユーザー情報編集", edit_user_path(id: params[:id]), class: 'btn  btn-block btn-primary' %><br>
+            <%= link_to "User edit", edit_user_path(id: params[:id]), class: 'btn  btn-block btn-primary' %><br>
           <% end %>
           <%= link_to "My Workbooks", "#myworkbooks", class: 'btn btn-block btn-primary' %><br>
           <%= link_to "Favorite Workbooks", "#favoriteworkbooks", class: 'btn btn-block btn-primary' %><br>
           <% if current_user?(@user) %>
-            <%= link_to "カレンダー", user_calendar_index_path(@user), class: 'btn btn-block btn-primary' %><br>
+            <%= link_to "Calendar", user_calendar_index_path(@user), class: 'btn btn-block btn-primary' %><br>
             <div class="btn btn-block btn-info work-new-form-show-btn">
-              問題集作成
+              Workbook create
             </div>
             <%= render 'workbooks/workbook_form' %>
           <% end %>
@@ -26,22 +26,22 @@
       <h2 id="myworkbooks"><span>My Workbooks</span></h2>
       <div class="row text-center mybooks-show">
         <div class="col-md-2 workbooks-data-name">
-          タイトル
+          Title
         </div>
         <div class="col-md-4 workbooks-data-name">
-          概要
+          Overview
         </div>
         <div class="col-md-2 workbooks-data-name">
-          スライド
+          Slide
         </div>
         <div class="col-md-2 workbooks-data-name">
-          ランダム
+          Random
         </div>
         <div class="col-md-1 workbooks-data-name">
-          編集
+          Edit
         </div>
         <div class="col-md-1 workbooks-data-name">
-          削除
+          Delete
         </div>
       </div>
       <div class="row text-center mybooks-show">
@@ -54,16 +54,16 @@
                 <%= simple_format(workbook.overview) %>
               </div>
               <div class="col-md-2 workbooks-data">
-                <%= link_to "スライド", "/workbooks/#{workbook.id}/slider?display=1", class: 'btn btn-info' %>
+                <%= link_to "Slide", "/workbooks/#{workbook.id}/slider?display=1", class: 'btn btn-info' %>
               </div>
               <div class="col-md-2 workbooks-data">
-                <%= link_to "ランダム", "/workbooks/#{workbook.id}/slider?display=2", class: 'btn btn-warning' %>
+                <%= link_to "Random", "/workbooks/#{workbook.id}/slider?display=2", class: 'btn btn-warning' %>
               </div>
               <div class="col-md-1 workbooks-data">
-                <%= link_to "編集", edit_workbook_path(id: workbook.id), class: 'btn btn-success' %>
+                <%= link_to "Edit", edit_workbook_path(id: workbook.id), class: 'btn btn-success' %>
               </div>
               <div class="col-md-1 workbooks-data workbooks-right-border">
-                <%= link_to "削除", workbook_path(workbook), method: :delete, class: 'btn btn-danger', data: { confirm: "本当に削除しますか？" } %>
+                <%= link_to "Delete", workbook_path(workbook), method: :delete, class: 'btn btn-danger', data: { confirm: "本当に削除しますか？" } %>
               </div>
             <% end %>
           <% end %>
@@ -71,19 +71,19 @@
       <h2 id="favoriteworkbooks"><span>Favorite Workbooks</span></h3>
         <div class="row text-center mybooks-show">
           <div class="col-md-2 workbooks-data-name">
-            タイトル
+            Title
           </div>
           <div class="col-md-3 workbooks-data-name">
-            概要
+            Overview
           </div>
           <div class="col-md-3 workbooks-data-name">
-            作成ユーザー
+            User
           </div>
           <div class="col-md-2 workbooks-data-name">
-            スライド
+            Slide
           </div>
           <div class="col-md-2 workbooks-data-name">
-            ランダム
+            Random
           </div>
         </div>
         <% @favorite_workbooks.each do |workbook| %>
@@ -103,10 +103,10 @@
               <%= link_to "#{workbook.user.name}", user_path(workbook.user_id) %>
             </div>
             <div class="col-md-2  workbooks-data">
-              <%= link_to "スライド", "/workbooks/#{workbook.id}/slider?display=1", class: 'btn btn-info' %>
+              <%= link_to "Slide", "/workbooks/#{workbook.id}/slider?display=1", class: 'btn btn-info' %>
             </div>
             <div class="col-md-2  workbooks-data">
-              <%= link_to "ランダム", "/workbooks/#{workbook.id}/slider?display=2", class: 'btn btn-warning' %>
+              <%= link_to "Random", "/workbooks/#{workbook.id}/slider?display=2", class: 'btn btn-warning' %>
             </div>
           </div>
         <% end %>

@@ -1,52 +1,64 @@
 <div class="container-workbook-show">
-    <div class="data-name border-right col-md-5">問題</div>
-    <div class="data-name data-2 col-md-3">答え</div>
+    <div class="data-name border-right col-md-5">Question</div>
+    <div class="data-name data-2 col-md-3">Answer</div>
     <div class="data-name border-right col-md-1">　</div>
-    <div class="data-name border-right col-md-1">暗記</div>
-    <div class="data-name border-right data-3 col-md-1">編集</div>
-    <div class="data-name col-md-1">削除</div>
+    <div class="data-name border-right col-md-1">Memory</div>
+    <div class="data-name border-right data-3 col-md-1">Edit</div>
+    <div class="data-name col-md-1">Delete</div>
   </div>
-    <% @workbook.question_answers.each_with_index do |question_answer, index| %>
+    <% @workbook.question_answers.each do |question_answer| %>
       <div class="row row-workbook-show">
         <div class="list-workbook-show col-md-5">
           <%= simple_format(question_answer.question) %>
         </div>
-        <div class="list-workbook-show col-md-3 hidden-answer-workbook answer-<%= index %>">
-          <%= simple_format(question_answer.answer) %>
-        </div>
-        <div class="col-md-1 text-center btn btn-info show-answer-<%= index %>">
-          答え表示
+
+        <div>
+          <div class="col-md-3 list-workbook-show hidden-answer-workbook answer">
+            <%= simple_format(question_answer.answer) %>
+          </div>
+          <div class="col-md-1 btn btn-info show-answer">
+            Open
+          </div>
         </div>
 
-        <script>
-        // 答えを表示をクリックで答えを表示(each内に入れて答え単体に反応する)
-        $(document).on('click', '.show-answer-<%= index %>', function(){
-          $('.answer-<%= index %>').removeClass('hidden-answer-workbook')
-          $('.show-answer-<%= index %>').text("答えを隠す").addClass('hidden-answer-<%=index %>');
-        });
-        // 答えを隠すをクリックで答えを非表示
-        $(document).on('click', '.hidden-answer-<%= index %>', function(){
-          $('.answer-<%= index%>').addClass('hidden-answer-workbook');
-          $('.hidden-answer-<%= index %>').text("答えを表示").removeClass('hidden-answer-<%= index %>');
-        });
-
-        </script>
           <% if !question_answer.memory_users.include?(current_user) %>
-            <%= link_to "覚えた", memories_path(question_answer_id: question_answer.id, workbook_id: @workbook.id),
+            <%= link_to "Memorized", memories_path(question_answer_id: question_answer.id, workbook_id: @workbook.id),
                       method: :post, class: "btn btn-danger btn-remenber col-md-1" %>
           <% else %>
-            <%= link_to "忘れた", memories_path(question_answer_id: question_answer.id, workbook_id: @workbook.id),
+            <%= link_to "Forgot", memories_path(question_answer_id: question_answer.id, workbook_id: @workbook.id),
                       method: :delete, class: "btn btn-success col-md-1" %>
           <% end %>
 
-        <% if current_user?(question_answer.user) %>
         <div class="list-workbook-show col-md-1">
-          <%= link_to "編集", edit_workbook_question_answer_path(@workbook, question_answer) %>
+          <% if current_user?(question_answer.user) %>
+            <%= link_to "Edit", edit_workbook_question_answer_path(@workbook, question_answer) %>
+          <% else %>
+            -
+          <% end %>
         </div>
         <div class="list-workbook-show col-md-1">
-          <%= link_to "削除", workbook_question_answer_path(@workbook, question_answer), method: :delete, data: { confirm: "本当に削除しますか？" }  %>
+          <% if current_user?(question_answer.user) %>
+            <%= link_to "Delete", workbook_question_answer_path(@workbook, question_answer), method: :delete, data: { confirm: "本当に削除しますか？" }  %>
+          <% else %>
+            -
+          <% end %>
         </div>
-        <% end %>
       </div>
     <% end %>
 </div>
+
+<script>
+// 答えを表示をクリックで答えを表示(each内に入れて答え単体に反応する)
+$(document).on('click', '.show-answer', function(){
+  var $answer = $(this).prev('.answer')
+  $answer.removeClass('hidden-answer-workbook')
+  $(this).text("Close").addClass('hidden-ans');
+});
+// 答えを隠すをクリックで答えを非表示
+$(document).on('click', '.hidden-ans', function(){
+  var $answerHidden = $(this).prev('.answer')
+  $answerHidden.addClass('hidden-answer-workbook');
+  $(this).text("Open").removeClass('hidden-ans');
+});
+
+</script>

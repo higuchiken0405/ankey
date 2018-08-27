@@ -251,6 +251,11 @@ footer {
   }
   .workbook-index-search {
     margin: 10px 0 20px 0;
+    .search-form {
+      width: 300px;
+      height: 40px;
+      margin: 10px auto 10px auto;
+    }
   }
   .workbook-index {
     margin: 0 0px;
@@ -287,6 +292,18 @@ footer {
       box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.6);
     }
   }
+
+  .workbooks-menu-list {
+      display: none;
+    ul {
+      padding: 0;
+
+      li {
+      list-style-type: none;
+      border-bottom: 1px solid #e0e0e0;
+      }
+    }
+  }
 }
 
 
@@ -306,7 +323,7 @@ footer {
     color: black;
 }
 
-/**** 問題集モーダル****/
+/**** 問題集作成モーダル****/
 
 #workbook-new-form-modal, #workbook-edit-form-modal {
   position: fixed;
@@ -314,10 +331,40 @@ footer {
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.8);
   display: none;
   z-index: 100;
 }
+.container-workbook-new {
+  h1, .form-group {
+    color: white;
+  }
+  .modal-form-workbook-new {
+    position: absolute;
+    top: 20%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    padding-bottom: 20px;
+    border: 1px solid white;
+    width: 50%;
+    //border-radius: 25px;
+    //background-color: #45a2e3;
+  }
+  .create-workbook-form-title {
+    width: 300px;
+    height: 40px;
+    margin: 10px auto 10px auto;
+  }
+  .create-workbook-form-overview {
+    width: 400px;
+    height: 120px;
+    margin: 10px auto 10px auto;
+  }
+}
+
+
 /**** 問題集詳細(問題・答え追加)(workbook-show) ****/
 .wrapper-workbook-show {
   z-index: 1;
@@ -375,10 +422,11 @@ footer {
 
 
 .close-modal {
+  color: white;
   font-size: 30px;
   font-weight: bold;
   text-align: right;
-  padding-right: 20px;
+  padding-right: 40px;
   &:hover {
     cursor : pointer;
   }

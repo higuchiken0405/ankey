@@ -1,16 +1,16 @@
 <div class="wrapper">
   <div class="container container-background">
     <div class="container-user-index text-center">
-      <h1><span>ユーザー一覧</span></h1>
+      <h1><span>Users</span></h1>
       <div class="row text-center user-index">
         <div class="col-md-1 col-md-offset-2 user-data-name">
-          番号
+          Index
         </div>
         <div class="col-md-5 user-data-name">
-          ユーザー名
+          User Name
         </div>
         <div class="col-md-2 user-data-name">
-          登録問題集
+          Workbook Count
         </div>
       </div>
         <% @users.each.with_index(1) do |user, i| %>
