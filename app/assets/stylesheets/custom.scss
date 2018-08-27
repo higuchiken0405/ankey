@@ -164,7 +164,7 @@ footer {
     margin-top: 30px;
   }
   .login-pages-form {
-    width: 300px;
+    width: 80%;
     height: 40px;
     margin: 10px auto 10px auto;
   }
@@ -197,7 +197,7 @@ footer {
     margin-top: 30px;
   }
   .signup-pages-form {
-    width: 300px;
+    width: 80%;
     height: 25px;
     margin: 5px auto 0 auto;
   }
@@ -211,22 +211,10 @@ footer {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
 /*** ユーザー関係 ***/
 /*** ユーザー一覧(user-index) ***/
 .container-user-index {
   margin: 80px 0 0 0;;
-
   h1 {
     margin-bottom: 30px;
     span {
@@ -380,6 +368,11 @@ footer {
 
   .workbook-index-form {
     margin: 10px 0 20px 0;
+
+    .work-new-form-show-btn {
+      border: 1px solid black;
+      box-shadow:2px 2px 2px #454545;
+    }
   }
   .workbook-index-search {
     margin: 10px 0 20px 0;
@@ -498,6 +491,14 @@ footer {
     width: 400px;
     height: 120px;
     margin: 10px auto 10px auto;
+  }
+  .create-workbook-btn {
+      border: 1px solid white;
+      color:white;
+      background-color: rgba(0, 0, 0, 0);
+      padding: 10px 40px;
+      margin-top: 20px;
+      font-size: 20px;
   }
 }
 

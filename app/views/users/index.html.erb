@@ -3,30 +3,30 @@
     <div class="container-user-index text-center">
       <h1><span>Users</span></h1>
       <div class="row text-center user-index">
-        <div class="col-md-1 col-md-offset-2 user-data-name">
+        <div class="col-md-1 col-md-offset-2 col-sm-1 col-sm-offset-2 user-data-name">
           Index
         </div>
-        <div class="col-md-5 user-data-name">
+        <div class="col-md-5 col-sm-5 user-data-name">
           User Name
         </div>
-        <div class="col-md-2 user-data-name">
+        <div class="col-md-2 col-sm-2 user-data-name">
           Workbook Count
         </div>
       </div>
         <% @users.each.with_index(1) do |user, i| %>
           <div class="row user-index">
-            <div class="col-md-1 col-md-offset-2 user-data user-data-left-border">
+            <div class="col-md-1 col-md-offset-2 col-sm-1 col-sm-offset-2 user-data user-data-left-border">
               <%= i %>
             </div>
-            <div class="col-md-2 user-data user-data user-data-left-border">
+            <div class="col-md-2 col-sm-2 user-data user-data user-data-left-border">
               <%= link_to user_path(id: user.id) do %>
                 <%= image_tag(user.image.url, class: 'user-index-img') %>
               <% end %>
             </div>
-            <div class="col-md-3 user-data user-data">
+            <div class="col-md-3 col-sm-3 user-data user-data">
               <%= link_to "#{user.name}", user_path(id: user.id) %>
             </div>
-            <div class="col-md-2 user-data  user-data-left-border user-data-right-border">
+            <div class="col-md-2 col-sm-2 user-data  user-data-left-border user-data-right-border">
               <%= user.workbooks.count %> 個
             </div>
           </div>

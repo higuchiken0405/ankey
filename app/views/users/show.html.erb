@@ -25,44 +25,44 @@
       </div>
       <h2 id="myworkbooks"><span>My Workbooks</span></h2>
       <div class="row text-center mybooks-show">
-        <div class="col-md-2 workbooks-data-name">
+        <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data-name">
           Title
         </div>
-        <div class="col-md-4 workbooks-data-name">
+        <div class="col-md-4 col-sm-4 col-xs-4 workbooks-data-name">
           Overview
         </div>
-        <div class="col-md-2 workbooks-data-name">
+        <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data-name">
           Slide
         </div>
-        <div class="col-md-2 workbooks-data-name">
+        <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data-name">
           Random
         </div>
-        <div class="col-md-1 workbooks-data-name">
+        <div class="col-md-1 col-sm-1 col-xs-1 workbooks-data-name">
           Edit
         </div>
-        <div class="col-md-1 workbooks-data-name">
+        <div class="col-md-1 col-sm-1 col-xs-1 workbooks-data-name">
           Delete
         </div>
       </div>
       <div class="row text-center mybooks-show">
           <% @workbooks.each do |workbook| %>
             <% if workbook.user_id == @user.id %>
-              <div class="col-md-2 workbooks-data">
+              <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data">
                 <%= link_to "#{workbook.title}", workbook_path(workbook.id) %>
               </div>
-              <div class="col-md-4 workbooks-data">
+              <div class="col-md-4 col-sm-4 col-xs-4 workbooks-data">
                 <%= simple_format(workbook.overview) %>
               </div>
-              <div class="col-md-2 workbooks-data">
+              <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data">
                 <%= link_to "Slide", "/workbooks/#{workbook.id}/slider?display=1", class: 'btn btn-info' %>
               </div>
-              <div class="col-md-2 workbooks-data">
+              <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data">
                 <%= link_to "Random", "/workbooks/#{workbook.id}/slider?display=2", class: 'btn btn-warning' %>
               </div>
-              <div class="col-md-1 workbooks-data">
+              <div class="col-md-1 col-sm-1 col-xs-1 workbooks-data">
                 <%= link_to "Edit", edit_workbook_path(id: workbook.id), class: 'btn btn-success' %>
               </div>
-              <div class="col-md-1 workbooks-data workbooks-right-border">
+              <div class="col-md-1 col-md-1 col-xs-1 workbooks-data workbooks-right-border">
                 <%= link_to "Delete", workbook_path(workbook), method: :delete, class: 'btn btn-danger', data: { confirm: "本当に削除しますか？" } %>
               </div>
             <% end %>
@@ -70,42 +70,42 @@
       </div>
       <h2 id="favoriteworkbooks"><span>Favorite Workbooks</span></h3>
         <div class="row text-center mybooks-show">
-          <div class="col-md-2 workbooks-data-name">
+          <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data-name">
             Title
           </div>
-          <div class="col-md-3 workbooks-data-name">
+          <div class="col-md-3 col-sm-3 col-xs-3 workbooks-data-name">
             Overview
           </div>
-          <div class="col-md-3 workbooks-data-name">
+          <div class="col-md-3 col-sm-3 col-xs-3 workbooks-data-name">
             User
           </div>
-          <div class="col-md-2 workbooks-data-name">
+          <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data-name">
             Slide
           </div>
-          <div class="col-md-2 workbooks-data-name">
+          <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data-name">
             Random
           </div>
         </div>
         <% @favorite_workbooks.each do |workbook| %>
           <div class="row text-center mybooks-show">
-            <div class="col-md-2  workbooks-data">
+            <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data">
               <%= link_to "#{workbook.title}", workbook_path(workbook.id) %>
             </div>
-            <div class="col-md-3  workbooks-data">
+            <div class="col-md-3 col-sm-3 col-xs-2 workbooks-data">
               <%= workbook.overview %>
             </div>
-            <div class="col-md-2  workbooks-data">
+            <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data">
               <%= link_to user_path(workbook.user_id) do %>
                 <%= image_tag workbook.user.image.url, class: 'workbooks-user-img' %>
               <% end %>
             </div>
-            <div class="col-md-1 workbooks-data-left-border-none">
+            <div class="col-md-1 col-sm-1 col-xs-1 workbooks-data-left-border-none">
               <%= link_to "#{workbook.user.name}", user_path(workbook.user_id) %>
             </div>
-            <div class="col-md-2  workbooks-data">
+            <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data">
               <%= link_to "Slide", "/workbooks/#{workbook.id}/slider?display=1", class: 'btn btn-info' %>
             </div>
-            <div class="col-md-2  workbooks-data">
+            <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data">
               <%= link_to "Random", "/workbooks/#{workbook.id}/slider?display=2", class: 'btn btn-warning' %>
             </div>
           </div>

@@ -1,19 +1,19 @@
 <div class="container-workbook-show">
   <div class="row">
-    <div class="data-name border-right col-md-5">Question</div>
-    <div class="data-name data-2 col-md-4">Answer</div>
-    <div class="data-name border-right col-md-1">Memory</div>
-    <div class="data-name border-right data-3 col-md-1">Edit</div>
-    <div class="data-name col-md-1">Delete</div>
+    <div class="data-name border-right col-md-5 col-sm-5 col-xs-5">Question</div>
+    <div class="data-name data-2 col-md-4 col-sm-4 col-xs-4">Answer</div>
+    <div class="data-name border-right col-md-1 col-sm-1 col-xs-1">Learned</div>
+    <div class="data-name border-right data-3 col-md-1 col-sm-1 col-xs-1">Edit</div>
+    <div class="data-name col-md-1 col-sm-1 col-xs-1">Delete</div>
   </div>
   </div>
     <% @workbook.question_answers.each do |question_answer| %>
       <div class="row row-workbook-show">
-        <div class="list-workbook-show col-md-5">
+        <div class="list-workbook-show col-md-5 col-sm-5 col-xs-5">
           <%= simple_format(question_answer.question) %>
         </div>
 
-        <div class="col-md-4 list-workbook-show">
+        <div class="col-md-4  col-sm-4 col-xs-4 list-workbook-show">
           <div class="hidden-answer-workbook answer">
             <%= simple_format(question_answer.answer) %>
           </div>
@@ -21,23 +21,23 @@
             Answer Open
           </div>
         </div>
-
+        <div class="col-md-1 col-sm-1 col-xs-1">
           <% if !question_answer.memory_users.include?(current_user) %>
-            <%= link_to "Memorized", memories_path(question_answer_id: question_answer.id, workbook_id: @workbook.id),
-                      method: :post, class: "btn btn-danger btn-remenber col-md-1" %>
+            <%= link_to "Learned", memories_path(question_answer_id: question_answer.id, workbook_id: @workbook.id),
+                      method: :post, class: "btn btn-danger btn-remenber" %>
           <% else %>
             <%= link_to "Forgot", memories_path(question_answer_id: question_answer.id, workbook_id: @workbook.id),
-                      method: :delete, class: "btn btn-success col-md-1" %>
+                      method: :delete, class: "btn btn-success" %>
           <% end %>
-
-        <div class="list-workbook-show col-md-1">
+        </div>
+        <div class="list-workbook-show col-md-1 col-sm-1 col-xs-1">
           <% if current_user?(question_answer.user) %>
             <%= link_to "Edit", edit_workbook_question_answer_path(@workbook, question_answer) %>
           <% else %>
             -
           <% end %>
         </div>
-        <div class="list-workbook-show col-md-1">
+        <div class="list-workbook-show col-md-1 col-sm-1 col-xs-1">
           <% if current_user?(question_answer.user) %>
             <%= link_to "Delete", workbook_question_answer_path(@workbook, question_answer), method: :delete, data: { confirm: "本当に削除しますか？" }  %>
           <% else %>
