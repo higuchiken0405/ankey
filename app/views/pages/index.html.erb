@@ -1,25 +1,44 @@
 
-<div class="wrapper wrapper-index">
+<div class="wrapper">
   <div class="container text-center">
-    <% if logged_in? %>
-    <div class="time-back">
-      <p><span id="time"></span></p>
-      <p><span id="year"></span></p>
-    </div>
-    <% else %>
-    <div class="row row-login-signup">
-      <h1>Welcome To Ankey</h1>
-      <p>This aplication is the most helpfil assistant</p>
-      <div class="col-md-offset-3 col-md-3">
-        <%= link_to "ログイン", login_path, class: "btn btn-info btn-index" %>
+    <div class="container-pages-index">
+      <% if logged_in? %>
+        <div class="clock">
+            <p><span id="time"></span></p>
+            <p><span id="year"></span></p>
+        </div>
+
+      <% else %>
+
+      <div class="pages-index-show pages-index-logo">
+          <h1>
+            Ankey
+          </h1>
       </div>
-      <div class="col-md-3">
-        <%= link_to "新規登録", signup_path, class: "btn btn-info btn-index" %>
+
+      <div class="pages-index-show pages-index-text">
+          <p>
+            This application is the most useful assistant for study.
+          </p>
       </div>
+
+      <div class="row row-login-signup pages-index container-background-black">
+        <h2>Welcome To Ankey</h2>
+          <p>TThis application is the most useful assistant for study.</p>
+          <div class="col-md-offset-3 col-md-3">
+            <%= link_to "Log In", login_path, class: "btn pages-index-btn" %>
+          </div>
+          <div class="col-md-3">
+            <%= link_to "Sign Up", signup_path, class: "btn pages-index-btn" %>
+          </div>
+      </div>
+
+      <% end %>
+
     </div>
-    <% end %>
   </div>
 </div>
+
 
 <script>
 function set2fig(num) {
@@ -29,6 +48,7 @@ function set2fig(num) {
    else { ret = num; }
    return ret;
 }
+// 時間表示
 function nowTime() {
    var nowTime = new Date();
    var nowHour = set2fig( nowTime.getHours() );
@@ -36,7 +56,6 @@ function nowTime() {
    var nowSec  = set2fig( nowTime.getSeconds() );
    var msg = nowHour + ":" + nowMin + ":" + nowSec;
    document.getElementById("time").innerHTML = msg;
-
 
    var nowYear = nowTime.getFullYear();
    var nowMonth = nowTime.getMonth();
@@ -50,5 +69,22 @@ function nowTime() {
    document.getElementById("year").innerHTML = nowDate;
 }
 setInterval('nowTime()',1000);
-
+</script>
+<script>
+$.when (
+  $('.wrapper').parents('body').css('background-color', '#191919').css('background-image', 'none' ),
+  $('.pages-index-logo').fadeIn(400),
+  $('.pages-index-logo').fadeOut(300)
+)
+.done(function() {
+  $.when (
+    $('.pages-index-text').fadeIn(400),
+    $('.pages-index-text').fadeOut(200)
+  )
+  .done(function() {
+    $('.wrapper').parents('body').css('background-image', ''),
+    $('.wrapper').parents('body').css('background-color', 'none'),
+    $('.pages-index').fadeIn(400)
+  });
+});
 </script>

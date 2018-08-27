@@ -1,10 +1,11 @@
 <div class="container-workbook-show">
+  <div class="row">
     <div class="data-name border-right col-md-5">Question</div>
-    <div class="data-name data-2 col-md-3">Answer</div>
-    <div class="data-name border-right col-md-1">　</div>
+    <div class="data-name data-2 col-md-4">Answer</div>
     <div class="data-name border-right col-md-1">Memory</div>
     <div class="data-name border-right data-3 col-md-1">Edit</div>
     <div class="data-name col-md-1">Delete</div>
+  </div>
   </div>
     <% @workbook.question_answers.each do |question_answer| %>
       <div class="row row-workbook-show">
@@ -12,12 +13,12 @@
           <%= simple_format(question_answer.question) %>
         </div>
 
-        <div>
-          <div class="col-md-3 list-workbook-show hidden-answer-workbook answer">
+        <div class="col-md-4 list-workbook-show">
+          <div class="hidden-answer-workbook answer">
             <%= simple_format(question_answer.answer) %>
           </div>
-          <div class="col-md-1 btn btn-info show-answer">
-            Open
+          <div class="btn btn-block show-answer-btn show-answer">
+            Answer Open
           </div>
         </div>
 
@@ -48,17 +49,15 @@
 </div>
 
 <script>
-// 答えを表示をクリックで答えを表示(each内に入れて答え単体に反応する)
+// 答えを表示をクリックで答えを表示
 $(document).on('click', '.show-answer', function(){
-  var $answer = $(this).prev('.answer')
-  $answer.removeClass('hidden-answer-workbook')
-  $(this).text("Close").addClass('hidden-ans');
+  var $answer = $(this).prev();
+  $answer.removeClass('hidden-answer-workbook').addClass('show-answer-workbook');
+  $(this).addClass('hidden-answer-workbook').removeClass('show-answer');
 });
 // 答えを隠すをクリックで答えを非表示
-$(document).on('click', '.hidden-ans', function(){
-  var $answerHidden = $(this).prev('.answer')
-  $answerHidden.addClass('hidden-answer-workbook');
-  $(this).text("Open").removeClass('hidden-ans');
-});
-
+$(document).on('click', '.show-answer-workbook', function(){
+  $(this).removeClass('show-answer-workbook').addClass('hidden-answer-workbook');
+  $(this).next().addClass('show-answer').removeClass('hidden-answer-workbook');
+})
 </script>

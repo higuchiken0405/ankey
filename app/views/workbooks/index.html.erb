@@ -4,7 +4,7 @@
 
       <h1><span>Workbooks</span></h1>
       <div class="workbook-index-form">
-        <div class="btn btn-lg btn-primary work-new-form-show-btn">create workbbok</div>
+        <div class="btn btn-lg btn-primary work-new-form-show-btn">create Workbbok</div>
         <%= render 'workbooks/workbook_form' %>
       </div>
       <div class="workbook-index-search text-center">
@@ -57,7 +57,7 @@
               <%=link_to "#{result.user.name}", user_path(id: result.user_id) %>
             </div>
             <div class="col-md-1 workbooks-data">
-              <div class="btn btn-info workbook-menu-btn">
+              <div class="btn workbook-menu-btn workbook-menu-btn">
                 Open
               </div>
               <div class=" workbooks-menu-list">
@@ -96,7 +96,7 @@ $(function(){
 $(function(){
 // メニューをクリックすると、メニュー表示
   $(document).on('click', '.workbook-menu-btn', function(){
-    var $workbookMenu = $(this).next('.workbooks-menu-list');
+    var $workbookMenu = $(this).next();
     if ( $workbookMenu.css('display') == 'none' ) {
       $(this).text('Close');
       $workbookMenu.slideDown();
