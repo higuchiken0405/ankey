@@ -24,7 +24,7 @@
 
       <div class="row text-center pages-index container-background-black">
         <h2>Welcome To Ankey</h2>
-          <p>TThis application is the most useful assistant for study.</p>
+          <p>This application is the most useful assistant for study.</p>
           <div class="col-md-3 col-md-offset-2 col-sm-3 col-sm-offset-2 btn pages-index-btn pages-index-login-btn">
             Log In
           </div>
@@ -76,13 +76,13 @@ setInterval('nowTime()',1000);
 
 $.when (
   $('.wrapper').parents('body').css('background-color', '#191919').css('background-image', 'none' ),
-  $('.pages-index-logo').fadeIn(400),
-  $('.pages-index-logo').fadeOut(300)
+  $('.pages-index-logo').fadeIn(2000),
+  $('.pages-index-logo').fadeOut(2000)
 )
 .done(function() {
   $.when (
-    $('.pages-index-text').fadeIn(400),
-    $('.pages-index-text').fadeOut(200)
+    $('.pages-index-text').fadeIn(2000),
+    $('.pages-index-text').fadeOut(1500)
   )
   .done(function() {
     $('.wrapper').parents('body').css('background-image', ''),

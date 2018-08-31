@@ -1,85 +1,86 @@
-<div class="wrapper wrapper-workbook-slider">
+<div class="wrapper">
   <div class="container text-center container-background">
     <div class="container-workbook-slider">
 
-      <div class="container-question">
-        <div class="question">問題</div>
+        <div class="container-card show-card">
           <% @workbook_question_answers.each_with_index do |question_answer, index| %>
             <% if index == 0 %>
-              <div class="slide active-slide">
-                <p><%= simple_format(question_answer.question) %></p>
+              <div class="card active-card row">
+                <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2 card-show-field">
+                  <p class="card-category">Question <%= index + 1 %></p>
+                  <%= simple_format(question_answer.question, class: 'card-content') %>
+                </div>
+                <%= render 'workbooks/slide_next_btn' %>
+              </div>
+            <% elsif index == @workbook_question_answers.size - 1 %>
+              <div class="card row">
+                <%= render 'workbooks/slide_prev_btn' %>
+                <div class="col-md-8 col-sm-8 col-xs-8 card-show-field">
+                  <p class="card-category">Question <%= index + 1 %></p>
+                  <%= simple_format(question_answer.question, class: 'card-content') %>
+                </div>
               </div>
             <% else %>
-              <div class="slide">
-                <p><%= simple_format(question_answer.question) %></p>
+            <div class="card row">
+              <%= render 'workbooks/slide_prev_btn' %>
+              <div class="col-md-8 col-sm-8 col-xs-8 card-show-field">
+                <p class="card-category">Question <%= index + 1 %></p>
+                <%= simple_format(question_answer.question, class: 'card-content') %>
               </div>
+              <%= render 'workbooks/slide_next_btn' %>
+            </div>
             <% end %>
           <% end %>
-      </div>
-
-      <div class="container container-slide-btn">
-        <div class="row slide-btn">
-          <div class="btn btn-info prev-btn change-btn col-md-3">
-            前へ
-          </div>
-          <div class="btn btn-info answer-btn col-md-offset-1 col-md-4">
-            答えを表示する
-          </div>
-          <div class="btn btn-info next-btn change-btn col-md-offset-1 col-md-3">
-            次へ
-          </div>
         </div>
-      </div>
-
-      <div class="container-answer hidden-answer">
-        <div class="answer">答え</div>
+        <div class="container-card hidden-card">
           <% @workbook_question_answers.each_with_index do |question_answer, index| %>
             <% if index == 0 %>
-              <div class="slide active-slide">
-                <p><%= simple_format(question_answer.answer) %></p>
+              <div class="card active-card row">
+                <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2 card-show-field">
+                  <p class="card-category">Answer <%= index + 1 %></p>
+                  <%= simple_format(question_answer.answer, class: 'card-content') %>
+               </div>
+                <div class="row">
                 <%= link_to "覚えた", memories_path(question_answer_id: question_answer.id, workbook_id: @workbook.id),
-                          method: :post, class: "btn btn-danger btn-remenber" %>
+                          method: :post, class: "btn btn-danger btn-remenber col-md-4 col-md-offset-4" %>
+                </div>
               </div>
             <% else %>
-              <div class="slide">
-                <p><%= simple_format(question_answer.answer) %></p>
+              <div class="card row">
+                <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2  card-show-field">
+                  <p class="card-category">Answer <%= index + 1 %></p>
+                  <%= simple_format(question_answer.answer, class: 'card-content') %>
+              </div>
+                <div class="row">
                 <%= link_to "覚えた", memories_path(question_answer_id: question_answer.id, workbook_id: @workbook.id),
-                          method: :post, class: "btn btn-danger btn-remenber" %>
+                          method: :post, class: "btn btn-danger btn-remenber col-md-4 col-md-offset-4" %>
+                </div>
               </div>
             <% end %>
           <% end %>
-      </div>
-
-      <%= link_to "スライドショーを終える", workbook_path(id: params[:id]) %>
-
-    </div>
+        </div>
   </div>
+            <%= link_to "スライドショーを終える", workbook_path(id: params[:id]) %>
 </div>
 <script>
 $(function(){
+  // 前後のカードを表示
   $(document).on('click', '.change-btn', function(){
-    var $displaySlide = $('.active-slide');
-    $displaySlide.removeClass('active-slide');
+    var $displaySlide = $('.active-card');
+    $displaySlide.removeClass('active-card');
     if ($(this).hasClass('next-btn')) {
-      $displaySlide.next().addClass('active-slide');
+      $displaySlide.next().addClass('active-card');
     } else {
-      $displaySlide.prev().addClass('active-slide');
+      $displaySlide.prev().addClass('active-card');
     }
   });
-  $(document).on('click', '.answer-btn', function(){
-    var $hiddenAnswer = $('.hidden-answer');
-    var $answerBtn = $('.answer-btn');
-    $hiddenAnswer.removeClass('hidden-answer');
-    $answerBtn.text("答えを隠す");
-    $answerBtn.addClass('answer-hidden-btn');
-  });
-  $(document).on('click', '.answer-hidden-btn', function(){
-    var $answerHiddenBtn = $('.answer-hidden-btn');
-    var $containerAnswer = $('.container-answer');
-    $answerHiddenBtn.text("答えを表示する");
-    $answerHiddenBtn.removeClass('answer-hidden-btn');
-    $containerAnswer.addClass('hidden-answer');
-  });
 
+  // 答え表示・問題非表示
+  $(document).on('click', '.card-show-field', function(){
+    var $sc = $('.show-card');
+    var $hc = $('.hidden-card');
+    $sc.addClass('hidden-card').removeClass('show-card');
+    $hc.addClass('show-card').removeClass('hidden-card');
+  });
 });
 </script>

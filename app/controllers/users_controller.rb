@@ -1,11 +1,7 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :edit, :update]
-  before_action :correct_user, only: [:edit, :update]
+  before_action :logged_in_user, only: [:index, :show, :update]
+  before_action :correct_user, only: [:update, :create]
 
-  # ユーザー登録画面
-  def new
-    @user = User.new
-  end
   # ユーザー登録画面のフォームデータを処理(サインアップ)
   def create
     @user = User.new(user_params)
@@ -14,8 +10,8 @@ class UsersController < ApplicationController
       flash[:success] = "登録完了しました"
       redirect_to user_path(id: @user.id)
     else
-      flash.now[:danger] = "登録に失敗しました"
-      render :new
+      flash[:danger] = "登録に失敗しました"
+      redirect_to root_path
     end
   end
 
@@ -36,10 +32,6 @@ class UsersController < ApplicationController
   end
 
 
-  # ユーザー情報編集ページ表示
-  def edit
-    @user = User.find_by(id: params[:id])
-  end
   #
   def update
     @user = User.find_by(id: params[:id])
@@ -48,7 +40,7 @@ class UsersController < ApplicationController
       redirect_to user_path(id: params[:id])
     else
       flash[:notice] = "編集に失敗しました"
-      render :edit
+      redirect_to user_path(id: params[:id])
     end
   end
 private

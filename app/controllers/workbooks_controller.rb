@@ -9,6 +9,7 @@ class WorkbooksController < ApplicationController
       redirect_to workbook_path(id: @workbook.id)
     else
       flash[:danger] = "問題集作成に失敗しました"
+      redirect_to workbooks_path
     end
   end
 

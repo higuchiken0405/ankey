@@ -7,13 +7,13 @@ class SessionsController < ApplicationController
   # ログイン処理
   def create
     user = User.find_by(email: params[:session][:email])
-    if user && user.authenticate(params[:session][:password])
+      if user && user.authenticate(params[:session][:password])
         log_in(user)
         redirect_to user_path(id: user.id)
-    else
-      flash.now[:danger] = "ログインに失敗しました"
-      render :new
-    end
+      else
+        flash.now[:danger] = "ログインに失敗しました"
+        redirect_to root_path
+      end
   end
 
   # ログアウト

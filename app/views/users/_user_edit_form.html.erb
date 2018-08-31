@@ -1,0 +1,37 @@
+<div class="container text-center" id="users-edit-form-modal">
+  <div class="container-users-edit">
+    <div class="modal-form-users-edit">
+      <div class="text-right"><i class="close-modal">×</i></div>
+      <h1>User Edit</h1>
+      <div class="row users-edit-form">
+        <%= form_for @user do |f| %>
+          <div class="form-group">
+            <%= f.label :"icon"%><br>
+            <%= f.file_field :image, style: "display:none" %>
+            <div class ="btn icon-form-btn">Icon File Select</div>
+            <%= text_field_tag('filenamevalue', "No File Selected...", id: "filename", readonly: true) %>
+          </div>
+          <div class="form-group">
+            <%= f.label :"name" %><br>
+            <%= f.text_field :name %>
+          </div>
+          <div class="form-group">
+            <%= f.label :"email" %><br>
+            <%= f.email_field :email %>
+          </div>
+          <div class="form-group">
+            <%= f.label :"password" %><br>
+            <%= f.password_field :password %>
+          </div>
+          <div class="form-group">
+            <%= f.label :"password-confirmation" %><br>
+            <%= f.password_field :passwrod %>
+          </div>
+
+          <%= f.submit "Registory", class: "btn users-edit-btn" %>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

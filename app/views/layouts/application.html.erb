@@ -12,6 +12,10 @@
       $(function(){
         $(".alert").fadeOut(5000);
       });
+      // workbooksのopen不具合用
+      $(document).on('click', '.workbooks-link', function(){
+        location.reload();
+      });
     </script>
   </body>
 </html>
