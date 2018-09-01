@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'calendar/index'
   root "pages#index"
   get "/signup",  to: "users#new"
   resources :users do
@@ -25,4 +24,5 @@ Rails.application.routes.draw do
   post "/favorites", to: "favorites#create"
   delete "/favorites", to: "favorites#destroy"
 
+  get 'calendar/index'
 end

@@ -4,7 +4,7 @@
 
       <h1><span>Workbooks</span></h1>
       <div class="workbook-index-form">
-        <div class="btn btn-lg work-new-form-show-btn">create Workbook</div>
+        <div class="btn btn-lg work-new-form-show-btn">Create Workbook</div>
         <%= render 'workbooks/workbook_form' %>
       </div>
       <div class="workbook-index-search text-center">
@@ -17,17 +17,18 @@
         <% end %>
       </div>
       <div class="row workbook-index">
-          <div class="col-md-1 col-md-offset-2 col-sm-1 col-sm-offset-2 workbooks-data-name">favorite</div>
-          <div class="col-md-2 col-sm-2 workbooks-data-name">Title</div>
-          <div class="col-md-2 col-sm-2 workbooks-data-name">Overview</div>
-          <div class="col-md-3 col-sm-3 workbooks-data-name">User Name</div>
-          <div class="col-md-1 col-sm-1 workbooks-data-name">Menu</div>
+          <div class="col-md-1 col-md-offset-1 col-sm-1 col-sm-offset-1 col-xs-1 col-xs-offset-1 workbooks-data-name">favorite</div>
+          <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data-name">Title</div>
+          <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data-name">Overview</div>
+          <div class="col-md-3 col-sm-3 col-xs-3 workbooks-data-name">User Name</div>
+          <div class="col-md-1 col-sm-1 col-xs-1 workbooks-data-name">Q and A</div>
+          <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data-name">Menu</div>
       </div>
 
       <% if @result.any? %>
         <% @result.each do |result| %>
           <div class="row workbook-index">
-            <div class="col-md-1 col-md-offset-2 col-sm-1 col-sm-offset-2 workbooks-data">
+            <div class="col-md-1 col-md-offset-1 col-sm-1 col-sm-offset-1 col-xs-1 col-xs-offset-1 workbooks-data">
             <% if !current_user?(result.user) %>
                 <% if !result.favorite_users.include?(current_user) %>
                   <%= link_to favorites_path(workbook_id: result.id), method: :post do %>
@@ -42,21 +43,25 @@
                 <p>-</p>
             <% end %>
             </div>
-            <div class="col-md-2 col-sm-2 workbooks-data">
-              <%=link_to "#{result.title}", workbook_path(result) %>
+            <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data">
+              <%=link_to "#{result.title}", workbook_path(result), class: 'title-link' %>
             </div>
-            <div class="col-md-2 col-sm-2 workbooks-data">
+            <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data">
+              <%= result.question_answers.count %>
               <%= simple_format(result.overview) %>
             </div>
-            <div class="col-md-2 col-sm-2 workbooks-data">
+            <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data">
               <%= link_to user_path(id: result.user_id) do %>
                 <%= image_tag result.user.image.url, class: 'workbooks-user-img' %>
               <% end %>
             </div>
-            <div class="col-md-1 col-sm-1 workbooks-data-left-border-none">
+            <div class="col-md-1 col-sm-1 col-xs-1 workbooks-data-left-border-none">
               <%=link_to "#{result.user.name}", user_path(id: result.user_id) %>
             </div>
-            <div class="col-md-1 col-sm-1 workbooks-data">
+            <div class="col-md-1 col-sm-1 col-xs-1 workbooks-data">
+              <%= result.question_answers.count %>
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data">
               <div class="btn workbook-menu-btn workbook-menu-btn">
                 Open
               </div>
@@ -65,7 +70,8 @@
                   <li><%= link_to "Slide", "/workbooks/#{result.id}/slider?display=1", class: 'btn' %></li>
                   <li><%= link_to "Random", "/workbooks/#{result.id}/slider?display=2", class: 'btn' %></li>
                   <% if current_user?(result.user) %>
-                    <li><%= link_to "Edit", edit_workbook_path(result), class: "btn"%></li>
+                    <li class="btn work-edit-form-show-btn">Edit</li>
+                    <%= render 'workbooks/workbook_form_edit', wk: result %>
                   <% else %>
                     <li>-</li>
                   <% end %>
@@ -85,7 +91,7 @@
 </div>
 <script>
 $(function(){
-  // ”問題集を作成”ボタンを押すと、モーダルフォーム表示
+  // ”Create Workbook”ボタンを押すと、モーダルフォーム表示
   $(document).on('click', '.work-new-form-show-btn', function(){
     $('#workbook-new-form-modal').fadeIn();
   });
@@ -106,5 +112,18 @@ $(function(){
     }
  });
 });
-
+$(function(){
+  // ”edit”ボタンを押すと、モーダルフォーム表示
+  $(document).on('click', '.work-edit-form-show-btn', function(){
+    $('#workbook-edit-form-modal').fadeIn();
+  });
+  $(document).on('click', '.close-modal', function(){
+    $('#workbook-edit-form-modal').fadeOut();
+  });
+});
+</script>
+<script>
+$(document).on('click', '.title-link', function(){
+  location.reload();
+});
 </script>

@@ -59,26 +59,30 @@ class WorkbooksController < ApplicationController
   # スライドページ表示
   def slider
     @workbook = Workbook.find_by(id: params[:id])
-
-    @display = params[:display].to_i
-
     # 覚えた(Memoryモデルに入っている)問答は除去する
     # 問題集の問答一覧を取得
     @question_answers = @workbook.question_answers
-    # 現在のユーザーが覚えた問答一覧を取得(現在の問題集IDの)
-    @memory_question_answers = current_user.memory_question_answers.select {|qa| qa.workbook_id = params[:id]}
-    # URLのクエリパラメータによって表示形式を変える(1=順列　2=ランダム)
-    @display = params[:display].to_i
-    if @display == 1
-      # 問題集の問答　一覧から覚えた問答一覧を除外
-      @workbook_question_answers = @question_answers - @memory_question_answers
-   elsif @display == 2
-      # 問題集の問答一覧から覚えた問答一覧を除外し、シャッフル
-     @workbook_question_answers = (@question_answers - @memory_question_answers).shuffle
-   else
-     # URLのクエリパラメータを1か2以外で直接入力された場合
-     @workbook_question_answers = @workbook.question_answers
-   end
+    # 問題があるなら
+    if @question_answers.present?
+      # 現在のユーザーが覚えた問答一覧を取得(現在の問題集IDの)
+      @memory_question_answers = current_user.memory_question_answers.select {|qa| qa.workbook_id = params[:id]}
+      # URLのクエリパラメータによって表示形式を変える(1=順列　2=ランダム)
+      @display = params[:display].to_i
+      if @display == 1
+        # 問題集の問答　一覧から覚えた問答一覧を除外
+        @workbook_question_answers = @question_answers - @memory_question_answers
+      elsif @display == 2
+        # 問題集の問答一覧から覚えた問答一覧を除外し、シャッフル
+        @workbook_question_answers = (@question_answers - @memory_question_answers).shuffle
+      else
+        # URLのクエリパラメータを1か2以外で直接入力された場合
+        @workbook_question_answers = @workbook.question_answers
+      end
+    # 問題がないなら
+    else
+      flash[:danger] = "問題がないので、スライド表示ができません。問題・答えを作成してください"
+      redirect_to workbook_path(@workbook)
+    end
   end
 
 

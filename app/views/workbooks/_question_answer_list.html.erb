@@ -1,52 +1,54 @@
 <div class="container-workbook-show">
   <div class="row">
     <div class="data-name border-right col-md-5 col-sm-5 col-xs-5">Question</div>
-    <div class="data-name data-2 col-md-4 col-sm-4 col-xs-4">Answer</div>
-    <div class="data-name border-right col-md-1 col-sm-1 col-xs-1">Learned</div>
-    <div class="data-name border-right data-3 col-md-1 col-sm-1 col-xs-1">Edit</div>
-    <div class="data-name col-md-1 col-sm-1 col-xs-1">Delete</div>
+    <div class="data-name border-right data-2 col-md-4 col-sm-4 col-xs-4">Answer</div>
+    <div class="data-name border-right col-md-2 col-sm-2 col-xs-2">Learned</div>
+    <div class="data-name border-right data-3 col-md-1 col-sm-1 col-xs-1">Menu</div>
   </div>
-  </div>
-    <% @workbook.question_answers.each do |question_answer| %>
-      <div class="row row-workbook-show">
-        <div class="list-workbook-show col-md-5 col-sm-5 col-xs-5">
-          <%= simple_format(question_answer.question) %>
-        </div>
-
-        <div class="col-md-4  col-sm-4 col-xs-4 list-workbook-show">
-          <div class="hidden-answer-workbook answer">
-            <%= simple_format(question_answer.answer) %>
-          </div>
-          <div class="btn btn-block show-answer-btn show-answer">
-            Answer Open
-          </div>
-        </div>
-        <div class="col-md-1 col-sm-1 col-xs-1">
-          <% if !question_answer.memory_users.include?(current_user) %>
-            <%= link_to "Learned", memories_path(question_answer_id: question_answer.id, workbook_id: @workbook.id),
-                      method: :post, class: "btn btn-danger btn-remenber" %>
-          <% else %>
-            <%= link_to "Forgot", memories_path(question_answer_id: question_answer.id, workbook_id: @workbook.id),
-                      method: :delete, class: "btn btn-success" %>
-          <% end %>
-        </div>
-        <div class="list-workbook-show col-md-1 col-sm-1 col-xs-1">
-          <% if current_user?(question_answer.user) %>
-            <%= link_to "Edit", edit_workbook_question_answer_path(@workbook, question_answer) %>
-          <% else %>
-            -
-          <% end %>
-        </div>
-        <div class="list-workbook-show col-md-1 col-sm-1 col-xs-1">
-          <% if current_user?(question_answer.user) %>
-            <%= link_to "Delete", workbook_question_answer_path(@workbook, question_answer), method: :delete, data: { confirm: "本当に削除しますか？" }  %>
-          <% else %>
-            -
-          <% end %>
-        </div>
-      </div>
-    <% end %>
 </div>
+<% @workbook.question_answers.each do |question_answer| %>
+<div class="row row-workbook-show">
+  <div class="list-workbook-show col-md-5 col-sm-5 col-xs-5">
+    <%= simple_format(question_answer.question) %>
+  </div>
+
+  <div class="col-md-4  col-sm-4 col-xs-4 list-workbook-show">
+    <div class="hidden-answer-workbook answer">
+      <%= simple_format(question_answer.answer) %>
+    </div>
+    <div class="btn btn-block show-answer-btn show-answer">
+      Answer Open
+    </div>
+    </div>
+      <div class="col-md-2 col-sm-2 col-xs-2 list-workbook-show">
+        <% if !question_answer.memory_users.include?(current_user) %>
+          <%= link_to "Learned", memories_path(question_answer_id: question_answer.id, workbook_id: @workbook.id),
+                      method: :post, class: "btn btn-remenber learned-btn" %>
+        <% else %>
+          <%= link_to "Forgot", memories_path(question_answer_id: question_answer.id, workbook_id: @workbook.id),
+                      method: :delete, class: "btn forgot-btn" %>
+        <% end %>
+      </div>
+      <% if current_user?(question_answer.user) %>
+      <div class="col-md-1 col-sm-1 col-xs-1 list-workbook-show">
+        <div class="btn workbook-menu-btn workbook-menu-btn">
+          Open
+        </div>
+        <div class=" workbooks-menu-list">
+          <ul>
+            <li class="btn question-answer-edit-btn">Edit</li>
+            <li><%= link_to "Delete", workbook_question_answer_path(@workbook, question_answer), method: :delete, class: 'btn', data: { confirm: "本当に削除しますか？" } %></li>
+          </ul>
+        </div>
+        <%= render 'workbooks/question_answer_form_edit', qa: question_answer %>
+      </div>
+      <% else %>
+      <div class="col-md-1 col-sm-1 col-xs-1 list-workbook-show">
+        -
+      </div>
+      <% end %>
+</div>
+<% end %>
 
 <script>
 // 答えを表示をクリックで答えを表示
@@ -60,4 +62,19 @@ $(document).on('click', '.show-answer-workbook', function(){
   $(this).removeClass('show-answer-workbook').addClass('hidden-answer-workbook');
   $(this).next().addClass('show-answer').removeClass('hidden-answer-workbook');
 })
+</script>
+<script>
+$(function(){
+// メニューをクリックすると、メニュー表示
+  $(document).on('click', '.workbook-menu-btn', function(){
+    var $workbookMenu = $(this).next();
+    if ( $workbookMenu.css('display') == 'none' ) {
+      $(this).text('Close');
+      $workbookMenu.slideDown();
+    } else {
+      $(this).text('Open');
+      $workbookMenu.slideUp();
+    }
+ });
+});
 </script>

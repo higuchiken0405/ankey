@@ -32,16 +32,16 @@
             <% end %>
           <% end %>
         </div>
-        <div class="container-card hidden-card">
+        <div class="container-card container-card-answer hidden-card">
           <% @workbook_question_answers.each_with_index do |question_answer, index| %>
             <% if index == 0 %>
               <div class="card active-card row">
                 <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2 card-show-field">
-                  <p class="card-category">Answer <%= index + 1 %></p>
+                  <p class="card-category-answer">Answer <%= index + 1 %></p>
                   <%= simple_format(question_answer.answer, class: 'card-content') %>
                </div>
                 <div class="row">
-                <%= link_to "覚えた", memories_path(question_answer_id: question_answer.id, workbook_id: @workbook.id),
+                <%= link_to "Learned", memories_path(question_answer_id: question_answer.id, workbook_id: @workbook.id),
                           method: :post, class: "btn btn-danger btn-remenber col-md-4 col-md-offset-4" %>
                 </div>
               </div>
@@ -52,7 +52,7 @@
                   <%= simple_format(question_answer.answer, class: 'card-content') %>
               </div>
                 <div class="row">
-                <%= link_to "覚えた", memories_path(question_answer_id: question_answer.id, workbook_id: @workbook.id),
+                <%= link_to "Learned", memories_path(question_answer_id: question_answer.id, workbook_id: @workbook.id),
                           method: :post, class: "btn btn-danger btn-remenber col-md-4 col-md-offset-4" %>
                 </div>
               </div>
@@ -60,7 +60,9 @@
           <% end %>
         </div>
   </div>
-            <%= link_to "スライドショーを終える", workbook_path(id: params[:id]) %>
+  <div class="text-center">
+    <%= link_to "End Slide", workbook_path(id: params[:id]), class: 'btn slide-end-btn' %>
+  </div>
 </div>
 <script>
 $(function(){

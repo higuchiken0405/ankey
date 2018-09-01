@@ -10,27 +10,31 @@
         </div>
         <div class="col-md-5 col-md-offset-1">
           <% if current_user?(@user) %>
-            <div class="btn btn-block btn-primary pages-show-edit-btn">User edit</div>
+            <div class="btn btn-block pages-show-edit-btn user-show-btn">User edit</div>
             <%= render 'users/user_edit_form' %>
             <% end %>
-          <%= link_to "My Workbooks", "#myworkbooks", class: 'btn btn-block btn-primary' %><br>
-          <%= link_to "Favorite Workbooks", "#favoriteworkbooks", class: 'btn btn-block btn-primary' %><br>
+          <%= link_to "My Workbooks", "#myworkbooks", class: 'btn btn-block user-show-btn user-workbook-link' %><br>
+          <%= link_to "Favorite Workbooks", "#favoriteworkbooks", class: 'btn btn-block user-show-btn user-workbook-link' %><br>
           <% if current_user?(@user) %>
-            <%= link_to "Calendar", user_calendar_index_path(@user), class: 'btn btn-block btn-primary' %><br>
-            <div class="btn btn-block btn-info work-new-form-show-btn">
+            <%= link_to "Calendar", user_calendar_index_path(@user), class: 'btn btn-block user-show-btn' %><br>
+            <div class="btn btn-block work-new-form-show-btn user-show-btn">
               Workbook create
             </div>
             <%= render 'workbooks/workbook_form' %>
           <% end %>
         </div>
       </div>
+
       <h2 id="myworkbooks"><span>My Workbooks</span></h2>
       <div class="row text-center mybooks-show">
         <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data-name">
           Title
         </div>
-        <div class="col-md-4 col-sm-4 col-xs-4 workbooks-data-name">
+        <div class="col-md-3 col-sm-3 col-xs-3 workbooks-data-name">
           Overview
+        </div>
+        <div class="col-md-1 col-sm-1 col-xs-1 workbooks-data-name">
+          Q and A
         </div>
         <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data-name">
           Slide
@@ -38,37 +42,45 @@
         <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data-name">
           Random
         </div>
-        <div class="col-md-1 col-sm-1 col-xs-1 workbooks-data-name">
-          Edit
-        </div>
-        <div class="col-md-1 col-sm-1 col-xs-1 workbooks-data-name">
-          Delete
+        <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data-name">
+          Menu
         </div>
       </div>
       <div class="row text-center mybooks-show">
           <% @workbooks.each do |workbook| %>
             <% if workbook.user_id == @user.id %>
               <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data">
-                <%= link_to "#{workbook.title}", workbook_path(workbook.id) %>
+                <%= link_to "#{workbook.title}", workbook_path(workbook.id), class: 'title-link' %>
               </div>
-              <div class="col-md-4 col-sm-4 col-xs-4 workbooks-data">
+              <div class="col-md-3 col-sm-3 col-xs-3 workbooks-data">
                 <%= simple_format(workbook.overview) %>
               </div>
-              <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data">
-                <%= link_to "Slide", "/workbooks/#{workbook.id}/slider?display=1", class: 'btn btn-info' %>
-              </div>
-              <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data">
-                <%= link_to "Random", "/workbooks/#{workbook.id}/slider?display=2", class: 'btn btn-warning' %>
-              </div>
               <div class="col-md-1 col-sm-1 col-xs-1 workbooks-data">
-                <%= link_to "Edit", edit_workbook_path(id: workbook.id), class: 'btn btn-success' %>
+                <%= workbook.question_answers.count %>
               </div>
-              <div class="col-md-1 col-md-1 col-xs-1 workbooks-data workbooks-right-border">
-                <%= link_to "Delete", workbook_path(workbook), method: :delete, class: 'btn btn-danger', data: { confirm: "本当に削除しますか？" } %>
+              <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data">
+                <%= link_to "Slide", "/workbooks/#{workbook.id}/slider?display=1", class: 'btn user-show-btn' %>
               </div>
+              <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data">
+                <%= link_to "Random", "/workbooks/#{workbook.id}/slider?display=2", class: 'btn user-show-btn' %>
+              </div>
+              <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data">
+                <div class="btn workbook-menu-btn workbook-menu-btn">
+                  Open
+                </div>
+                <div class=" workbooks-menu-list">
+                  <ul>
+                    <li class="btn user-show-workbook-edit-btn">Edit</li>
+                    <li><%= link_to "Delete", workbook_path(workbook), method: :delete, class: 'btn', data: { confirm: "本当に削除しますか？" } %></li>
+                  </ul>
+                </div>
+                  <%= render 'workbooks/workbook_form_edit', wk: workbook %>
+              </div>
+
             <% end %>
           <% end %>
       </div>
+
       <h2 id="favoriteworkbooks"><span>Favorite Workbooks</span></h3>
         <div class="row text-center mybooks-show">
           <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data-name">
@@ -104,10 +116,10 @@
               <%= link_to "#{workbook.user.name}", user_path(workbook.user_id) %>
             </div>
             <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data">
-              <%= link_to "Slide", "/workbooks/#{workbook.id}/slider?display=1", class: 'btn btn-info' %>
+              <%= link_to "Slide", "/workbooks/#{workbook.id}/slider?display=1", class: 'btn user-show-btn' %>
             </div>
             <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data">
-              <%= link_to "Random", "/workbooks/#{workbook.id}/slider?display=2", class: 'btn btn-warning' %>
+              <%= link_to "Random", "/workbooks/#{workbook.id}/slider?display=2", class: 'btn user-show-btn' %>
             </div>
           </div>
         <% end %>
@@ -147,4 +159,37 @@ $(function(){
   $(document).on('change', '#user_image', function(){
     $('#filename').val($(this).val().replace(/^.*\\/, ""));
   });
+</script>
+<script>
+$(function(){
+  $(document).on('click', '.user-show-workbook-edit-btn', function(){
+    $('#workbook-edit-form-modal').fadeIn();
+  });
+  $(document).on('click', '.close-modal', function(){
+    $('#workbook-edit-form-modal').fadeOut();
+  });
+});
+</script>
+<script>
+$(function(){
+// メニューをクリックすると、メニュー表示
+  $(document).on('click', '.workbook-menu-btn', function(){
+    var $workbookMenu = $(this).next();
+    if ( $workbookMenu.css('display') == 'none' ) {
+      $(this).text('Close');
+      $workbookMenu.slideDown();
+    } else {
+      $(this).text('Open');
+      $workbookMenu.slideUp();
+    }
+ });
+});
+</script>
+<script>
+$(document).on('click', '.title-link', function(){
+  location.reload();
+});
+$(document).on('click', '.user-workbook-link', function(){
+  location.reload();
+});
 </script>

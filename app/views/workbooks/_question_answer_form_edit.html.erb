@@ -1,9 +1,9 @@
-<div class="container text-center" id="question-answer-form-modal">
-  <div class="container-question-answer-create">
-    <div class="modal-form-question-answer-create">
+<div class="container text-center" id="question-answer-edit-form-modal">
+  <div class="container-question-answer-edit">
+    <div class="modal-form-question-answer-edit">
       <div class="text-right"><i class="close-modal">×</i></div>
-      <h1>Create Question and Answer</h1>
-        <%= form_for @question_answer, url: workbook_question_answers_path(@workbook, @question_answer) do |f| %>
+      <h1>Edit Question and Answer</h1>
+        <%= form_for qa, url: workbook_question_answers_path(@workbook, qa) do |f| %>
           <div class="row question-answer-form">
             <div class="form-group col-md-6">
               <%= f.label :question %>
@@ -15,7 +15,7 @@
             </div>
           </div>
 
-          <%= f.submit "Create", class: 'btn create-question-answer-btn' %>
+          <%= f.submit "Edit", class: 'btn edit-question-answer-btn' %>
 
         <% end %>
     </div>
