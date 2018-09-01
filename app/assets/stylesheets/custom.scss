@@ -953,7 +953,7 @@ footer {
 }
 /* 問題・答え作成フォーム*/
 .container-question-answer-create {
-  h1, .form-group {
+  h1, label {
     color: white;
   }
   .modal-form-question-answer-create {
@@ -990,7 +990,7 @@ footer {
   }
 }
 .container-question-answer-edit {
-  h1, .form-group {
+  h1, label {
     color: white;
   }
   .modal-form-question-answer-edit {

@@ -19,6 +19,7 @@ class UsersController < ApplicationController
   def index
     @users = User.all
   end
+
   # ユーザー情報ページ表示
   def show
     # ユーザー情報の取得
@@ -39,7 +40,7 @@ class UsersController < ApplicationController
       flash[:success] = "編集が完了しました"
       redirect_to user_path(id: params[:id])
     else
-      flash[:notice] = "編集に失敗しました"
+      flash[:danger] = "編集に失敗しました"
       redirect_to user_path(id: params[:id])
     end
   end

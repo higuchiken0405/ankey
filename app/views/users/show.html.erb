@@ -71,10 +71,10 @@
                 <div class=" workbooks-menu-list">
                   <ul>
                     <li class="btn user-show-workbook-edit-btn">Edit</li>
+                    <%= render 'workbooks/workbook_form_edit', wk: workbook %>
                     <li><%= link_to "Delete", workbook_path(workbook), method: :delete, class: 'btn', data: { confirm: "本当に削除しますか？" } %></li>
                   </ul>
                 </div>
-                  <%= render 'workbooks/workbook_form_edit', wk: workbook %>
               </div>
 
             <% end %>
@@ -163,7 +163,7 @@ $(function(){
 <script>
 $(function(){
   $(document).on('click', '.user-show-workbook-edit-btn', function(){
-    $('#workbook-edit-form-modal').fadeIn();
+    $(this).next().fadeIn();
   });
   $(document).on('click', '.close-modal', function(){
     $('#workbook-edit-form-modal').fadeOut();

@@ -24,7 +24,7 @@ class WorkbooksController < ApplicationController
       redirect_to workbooks_path
     else
       flash[:notice] = "編集に失敗しました"
-      render :index
+      redirect_to workbooks_path
     end
   end
 

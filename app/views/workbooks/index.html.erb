@@ -115,7 +115,7 @@ $(function(){
 $(function(){
   // ”edit”ボタンを押すと、モーダルフォーム表示
   $(document).on('click', '.work-edit-form-show-btn', function(){
-    $('#workbook-edit-form-modal').fadeIn();
+    $(this).next().fadeIn();
   });
   $(document).on('click', '.close-modal', function(){
     $('#workbook-edit-form-modal').fadeOut();

@@ -45,8 +45,8 @@ class QuestionAnswersController < ApplicationController
     if @question_answer.update_attributes(question_answer_params)
       redirect_to workbook_path(@workbook)
     else
-      flash[:notice] = "編集に失敗しました"
-      render :index
+      flash[:danger] = "編集に失敗しました"
+      redirect_to workbook_path(@workbook)
     end
   end
 

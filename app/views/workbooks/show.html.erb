@@ -42,7 +42,7 @@ $(function(){
 $(function(){
   // ”edit”ボタンを押すと、モーダルフォーム表示
   $(document).on('click', '.question-answer-edit-btn', function(){
-    $('#question-answer-edit-form-modal').fadeIn();
+    $(this).next().fadeIn();
   });
   $(document).on('click', '.close-modal', function(){
     $('#question-answer-edit-form-modal').fadeOut();

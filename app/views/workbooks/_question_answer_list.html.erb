@@ -37,10 +37,10 @@
         <div class=" workbooks-menu-list">
           <ul>
             <li class="btn question-answer-edit-btn">Edit</li>
+            <%= render 'workbooks/question_answer_form_edit', qa: question_answer %>
             <li><%= link_to "Delete", workbook_question_answer_path(@workbook, question_answer), method: :delete, class: 'btn', data: { confirm: "本当に削除しますか？" } %></li>
           </ul>
         </div>
-        <%= render 'workbooks/question_answer_form_edit', qa: question_answer %>
       </div>
       <% else %>
       <div class="col-md-1 col-sm-1 col-xs-1 list-workbook-show">
