@@ -41,11 +41,9 @@ class WorkbooksController < ApplicationController
   def index
     # 問題集作成フォーム用のインスタンス
     @workbook = Workbook.new
-    # 問題集一覧表示のため、全ての要素を取得
-    @workbooks = Workbook.all
     # ransckによる検索
     @search = Workbook.ransack(params[:q])
-    @result = @search.result
+    @result = @search.result.page(params[:page]).per(7)
   end
 
   # 問題集の詳細ページ表示(問題・答え一覧)
@@ -53,6 +51,8 @@ class WorkbooksController < ApplicationController
     @workbook = Workbook.find_by(id: params[:id])
     # 問題・答え作成フォーム用のインスタンス
     @question_answer = QuestionAnswer.new
+
+    @question_answers = @workbook.question_answers.page(params[:page]).per(10)
   end
 
 

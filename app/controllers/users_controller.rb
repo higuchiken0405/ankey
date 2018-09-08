@@ -16,8 +16,9 @@ class UsersController < ApplicationController
   end
 
   # ユーザー情報を一覧表示
+  PER = 10
   def index
-    @users = User.all
+    @users = User.page(params[:page]).per(PER)
   end
 
   # ユーザー情報ページ表示

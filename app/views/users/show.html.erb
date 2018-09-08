@@ -166,7 +166,7 @@ $(function(){
     $(this).next().fadeIn();
   });
   $(document).on('click', '.close-modal', function(){
-    $('#workbook-edit-form-modal').fadeOut();
+    $(this).parents('#workbook-edit-form-modal').fadeOut();
   });
 });
 </script>

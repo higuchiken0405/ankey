@@ -6,7 +6,7 @@
     <div class="data-name border-right data-3 col-md-1 col-sm-1 col-xs-1">Menu</div>
   </div>
 </div>
-<% @workbook.question_answers.each do |question_answer| %>
+<% @question_answers.each do |question_answer| %>
 <div class="row row-workbook-show">
   <div class="list-workbook-show col-md-5 col-sm-5 col-xs-5">
     <%= simple_format(question_answer.question) %>
