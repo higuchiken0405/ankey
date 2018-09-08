@@ -1,0 +1,86 @@
+<head>
+     <meta charset='utf-8' />
+     <link href='../fullcalendar.css' rel='stylesheet' />
+     <link href='../fullcalendar.print.css' rel='stylesheet' media='print' />
+     <script src='../lib/moment.min.js'></script>
+     <script src='../lib/jquery.min.js'></script>
+     <script src='../fullcalendar.min.js'></script>
+     <script src='../lang/ja.js'></script>
+ </head>
+<div class="wrapper">
+  <div class="container text-center container-background">
+    <div class="container-calendar">
+      <div id="calendar"></div>
+    </div>
+  </div>
+</div>
+<script>
+$(document).ready(function () {
+
+
+  $('#calendar').fullCalendar({
+    header: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'month,agendaWeek,agendaDay'
+    },
+      navLinks: true,
+      selectable: true,
+      selectHelper: true,
+      select: function(start, end) {
+        var title = prompt('イベントを追加');
+        var eventData;
+        if (title) {
+          eventData = {
+            title: title,
+            start: start,
+            end: end
+          };
+          $('#calendar').fullCalendar('renderEvent', eventData, true);
+          $('#calendar').fullCalendar('unselect');
+          create_event(title, start, end);
+        }
+      },
+      height: 800,
+      timeFormat: 'H:mm',
+      axisFormat: 'H:mm', //時間軸に表示する時間の表示フォーマットを指定する
+      editable: true, // 変更可にする
+      eventLimit: true, // allow "more" link when too many events
+      eventLimitClick:'popover',
+      events: '/events.json',
+  });
+});
+
+</script>
+<style>
+
+    body {
+        margin: 40px 10px;
+        padding: 0;
+        font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+        font-size: 14px;
+    }
+
+    #calendar {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    .fc-sun {
+      color: #FF0000;
+    }
+    .fc-sat {
+      color: blue;
+    }
+    .fc-sun > span {
+        color: #cd384b;
+    }
+    .fc-sat > span {
+        color: #415ea6;
+    }
+    td.fc-sun {
+        background-color: #fae6e3;
+    }
+    td.fc-sat {
+        background-color: #dceef7;
+    }
+</style>

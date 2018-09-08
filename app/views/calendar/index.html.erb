@@ -15,19 +15,16 @@
   </div>
 </div>
 <script>
-$(document).ready(function () {
-
-  create_event = function(title, start, end){
-    $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
-      var token;
-      if (!options.crossDomain) {
-        token = $('meta[name="csrf-token"]').attr('content');
-        if (token) {
-          return jqXHR.setRequestHeader('X-CSRF-Token', token);
-        }
+create_event = function(title, start, end){
+  $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
+    var token;
+    if (!options.crossDomain) {
+      token = $('meta[name="csrf-token"]').attr('content');
+      if (token) {
+        return jqXHR.setRequestHeader('X-CSRF-Token', token);
       }
-    });
-
+    }
+  });
   $.ajax({
     type: "post",
     url: "/events/create",
@@ -38,48 +35,37 @@ $(document).ready(function () {
     }
   }).done(function(data){
     alert("登録しました!");
-    }).fail(function(data){
+  }).fail(function(data){
     alert("登録できませんでした。");
-    });
-  };
-
-  $('#calendar').fullCalendar({
-    header: {
-      left: 'prev,next today',
-      center: 'title',
-      right: 'month,agendaWeek,agendaDay'
-    },
-      navLinks: true,
-      selectable: true,
-      selectHelper: true,
-      select: function(start, end) {
-        var title = prompt('イベントを追加');
-        var eventData;
-        if (title) {
-          eventData = {
-            title: title,
-            start: start,
-            end: end
-          };
-          $('#calendar').fullCalendar('renderEvent', eventData, true);
-          $('#calendar').fullCalendar('unselect');
-          create_event(title, start, end);
-        }
-      },
-      height: 800,
-      timeFormat: 'H:mm',
-      axisFormat: 'H:mm', //時間軸に表示する時間の表示フォーマットを指定する
-      editable: true, // 変更可にする
-      eventLimit: true, // allow "more" link when too many events
-      eventLimitClick:'popover',
-      events:[
-        {
-          title: 'All Day Event',
-          start: '2018-09-01T06:30:00',
-          end: '2018-09-07T17:47:00'
-        },
-      ],
   });
+};
+
+$('#calendar').fullCalendar({
+  header: {
+    left: 'prev,next today',
+    center: 'title',
+    right: 'month,agendaWeek,agendaDay'
+  },
+  navLinks: true,
+  selectable: true,
+  selectHelper: true,
+  select: function(start, end) {
+    var title = prompt('イベントを追加');
+    var eventData;
+    if (title) {
+      eventData = {
+        title: title,
+        start: start,
+        end: end
+      };
+      $('#calendar').fullCalendar('renderEvent', eventData, true);
+      $('#calendar').fullCalendar('unselect');
+      create_event(title, start, end);
+    }
+  },
+  timezone: 'UTC',
+  events: '/events.json',
+  editable: true
 });
 
 </script>
@@ -96,7 +82,22 @@ $(document).ready(function () {
         max-width: 900px;
         margin: 0 auto;
     }
-    .fc-sun, .fc-sat {
-        color: #FF0000;
+    .fc-sun {
+      color: #FF0000;
+    }
+    .fc-sat {
+      color: blue;
+    }
+    .fc-sun > span {
+        color: #cd384b;
+    }
+    .fc-sat > span {
+        color: #415ea6;
+    }
+    td.fc-sun {
+        background-color: #fae6e3;
+    }
+    td.fc-sat {
+        background-color: #dceef7;
     }
 </style>
