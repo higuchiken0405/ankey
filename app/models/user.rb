@@ -7,12 +7,12 @@ class User < ApplicationRecord
 
   mount_uploader :image, ImageUploader
 
-  has_many :workbooks
-  has_many :question_answers
-  has_many :memories
+  has_many :workbooks, dependent: :destroy
+  has_many :question_answers, dependent: :destroy
+  has_many :memories, dependent: :destroy
   has_many :memory_question_answers, through: :memories, source: 'question_answer'
-  has_many :favorites
+  has_many :favorites, dependent: :destroy
   has_many :favorite_workbooks, through: :favorites, source: 'workbook'
-  has_many :events
+  has_many :events, dependent: :destroy
 
 end

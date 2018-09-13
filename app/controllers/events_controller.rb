@@ -6,7 +6,7 @@ class EventsController < ApplicationController
 
 
   def show
-      @events = Event.all
+      @events = Event.where(user_id: current_user.id)
       # render :json => @event
       respond_to do |format|
         format.json {
@@ -39,7 +39,7 @@ class EventsController < ApplicationController
 
 
     def update
-      event = Event.find_by(id: params[:id]);
+      event = Event.find_by(id: params[:id])
       event.attributes = {
         title: params[:title],
         start: params[:start],
@@ -57,12 +57,12 @@ class EventsController < ApplicationController
     end
 
     def destroy
-      event = Event.find_by(id: params[:id]);
+      event = Event.find_by(id: params[:id])
       event.destroy
-      respond_to do |format|
-        format.html { redirect_to events_url, notice: 'Event was successfully destroyed.' }
-        format.json { head :no_content }
-      end
+      #respond_to do |format|
+        #format.html { redirect_to user_calendar_index_path(id: current_user.id) }
+        #format.json { head :no_content }
+      #end
     end
 
 end
