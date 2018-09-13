@@ -1,0 +1,26 @@
+<div class="container container-background">
+<div class="event-form">
+  <%= form_for @event, url: events_create_path do |f| %>
+    <div class="form-group">
+      <%= f.label :"title" %>
+      <%= f.text_field :"title", class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :"start" %>
+      <%= f.text_field :"start", class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :"end" %>
+      <%= f.text_field :"end", class: 'form-control' %>
+    </div>
+
+    <%= f.submit 'Create', class: 'btn btn-default' %>
+  <% end %>
+</div>
+</div>
+
+<style>
+  .event-form {
+    padding-top: 60px;
+  }
+</style>

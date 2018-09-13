@@ -108,9 +108,9 @@ $(function(){
     $('#pages-singup-form-modal').fadeOut();
   });
 });
-
-
-
-
-
 </script>
+<% if logged_in? %>
+<script>
+  $('.wrapper').parents('body').css('background-color', '#000000').css('background-image', 'none' )
+</script>
+<% end %>

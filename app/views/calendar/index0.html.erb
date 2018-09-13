@@ -1,21 +1,124 @@
-<head>
-     <meta charset='utf-8' />
-     <link href='../fullcalendar.css' rel='stylesheet' />
-     <link href='../fullcalendar.print.css' rel='stylesheet' media='print' />
-     <script src='../lib/moment.min.js'></script>
-     <script src='../lib/jquery.min.js'></script>
-     <script src='../fullcalendar.min.js'></script>
-     <script src='../lang/ja.js'></script>
- </head>
 <div class="wrapper">
   <div class="container text-center container-background">
     <div class="container-calendar">
       <div id="calendar"></div>
     </div>
+    <!-- イベント登録フォーム-->
+    <div class="event-form">
+      <%= form_for @event, url: events_create_path do |f| %>
+        <div class="form-group">
+          <%= f.label :"title" %>
+          <%= f.text_field :"title", class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :"start" %>
+          <%= f.text_field :"start", class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :"end" %>
+          <%= f.text_field :"end", class: 'form-control' %>
+        </div>
+
+        <%= f.submit 'Create', class: 'btn btn-default' %>
+      <% end %>
+    </div>
+    <!-- イベント情報モーダル -->
+    <div class="event-info" id="event-info-modal">
+      <h2>イベント情報</h1>
+      <div class="row">
+        <p class="event-title col-md-4 col-md-offset-1">タイトル:</p>
+        <p id="event-title-info" class="col-md-6"></p>
+      </div>
+      <div class="row">
+        <p class="event-start col-md-4 col-md-offset-1">開始時刻:</p>
+        <p id="event-start-info" class="col-md-6"></p>
+      </div>
+      <div class="row">
+        <p class="event-end col-md-4 col-md-offset-1">開始時刻:</p>
+        <p id="event-end-info" class="col-md-6"></p>
+      </div>
+    </div>
+
   </div>
 </div>
 <script>
-$(document).ready(function () {
+$(document).ready(function() {
+
+  create_event = function(title, start, end){
+    $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
+      var token;
+      if (!options.crossDomain) {
+        token = $('meta[name="csrf-token"]').attr('content');
+        if (token) {
+          return jqXHR.setRequestHeader('X-CSRF-Token', token);
+        }
+      }
+    });
+    $.ajax({
+      type: "post",
+      url: "/events/create",
+      data: {
+        title: title,
+        start: start.toISOString(),
+        end: end.toISOString()
+      }
+    }).done(function(data){
+      alert("登録しました!");
+    }).fail(function(data){
+      alert("登録できませんでした。");
+    });
+  };
+
+  update_event = function(id, title, start, end){
+    $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
+      var token;
+      if (!options.crossDomain) {
+        token = $('meta[name="csrf-token"]').attr('content');
+        if (token) {
+          return jqXHR.setRequestHeader('X-CSRF-Token', token);
+        }
+      }
+    });
+
+    $.ajax({
+      type: "PATCH",
+      url: "/events/update",
+      data: {
+        id: id,
+        title: title,
+        start: start,
+        end: end
+      }
+    }).done(function(data){
+      alert("更新しました!");
+    }).fail(function(data){
+      alert("更新できませんでした。");
+    });
+  };
+
+  destroy_event = function(id){
+    $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
+      var token;
+      if (!options.crossDomain) {
+        token = $('meta[name="csrf-token"]').attr('content');
+        if (token) {
+          return jqXHR.setRequestHeader('X-CSRF-Token', token);
+        }
+      }
+    });
+
+    $.ajax({
+      type: "DELETE",
+      url: "/events/destroy",
+      data: {
+        id: id
+      }
+    }).done(function(data){
+      alert("削除しました!");
+    }).fail(function(data){
+      alert("削除できませんでした。");
+    });
+  };
 
 
   $('#calendar').fullCalendar({
@@ -24,33 +127,64 @@ $(document).ready(function () {
       center: 'title',
       right: 'month,agendaWeek,agendaDay'
     },
-      navLinks: true,
-      selectable: true,
-      selectHelper: true,
-      select: function(start, end) {
-        var title = prompt('イベントを追加');
-        var eventData;
-        if (title) {
-          eventData = {
-            title: title,
-            start: start,
-            end: end
-          };
-          $('#calendar').fullCalendar('renderEvent', eventData, true);
-          $('#calendar').fullCalendar('unselect');
-          create_event(title, start, end);
-        }
-      },
-      height: 800,
-      timeFormat: 'H:mm',
-      axisFormat: 'H:mm', //時間軸に表示する時間の表示フォーマットを指定する
-      editable: true, // 変更可にする
-      eventLimit: true, // allow "more" link when too many events
-      eventLimitClick:'popover',
-      events: '/events.json',
+    navLinks: true,
+    selectable: true,
+    selectHelper: true,
+    displayEventTime: false,
+    displayEventEnd: false,
+    // イベント登録
+    // 選択した日付のstart,endを取得
+    select: function(start, end) {
+      var title = prompt('イベントを追加');
+      var eventData;
+      if (title) {
+        eventData = {
+          title: title,
+          start: start,
+          end: end
+        };
+      var str = moment(eventData.start).format('YYYY/MM/DD HH:mm');
+      console.log(str);
+    //　カレンダーに"evenData"を表示
+    $('#calendar').fullCalendar('renderEvent', eventData, true);
+　　// 日付選択を解除
+    $('#calendar').fullCalendar('unselect');
+    //promptで入力したtitleと、selectしたstart,endを引数にcreate_eventを実行
+    create_event(title, start, end);
+      }
+    },
+    // イベントをクリックしてプロンプト入力で編集
+    eventClick: function(event, element, jsEvent) {
+      event.title = prompt("イベント名を入力してください。", event.title);
+      event.start = prompt("開始時刻を編集", moment(event.start).format('YYYY/MM/DD HH:mm'));
+      event.end = prompt("終了時刻を編集", moment(event.end).format('YYYY/MM/DD HH:mm'));
+        $('#calendar').fullCalendar('updateEvent', event);
+        update_event(event.id, event.title, event.start, event.end);
+
+    },
+    // イベントにマウスオーバーするとイベント情報表示
+    eventMouseover: function(event, jsEvent) {
+      document.getElementById('event-title-info').textContent = event.title;
+      document.getElementById('event-start-info').textContent = moment(event.start).format('YYYY/MM/DD HH:mm');
+      document.getElementById('event-end-info').textContent = moment(event.end).format('YYYY/MM/DD HH:mm');
+      document.getElementById('event-info-modal').style.display = 'block';
+      var topY = (jsEvent.pageY + 20) + "px";
+      document.getElementById('event-info-modal').style.top = topY;
+      var leftX = (jsEvent.pageX - 20) + "px";
+      document.getElementById('event-info-modal').style.left = leftX;
+    },
+    // イベントにマウスアウトするとイベント情報表示を閉じる
+    eventMouseout: function(event) {
+      document.getElementById('event-info-modal').style.display = 'none';
+    },
+
+
+
+    timezone: 'UTC',
+    events: '/events.json',
+    editable: true,
   });
 });
-
 </script>
 <style>
 

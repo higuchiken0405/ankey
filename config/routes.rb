@@ -5,10 +5,11 @@ Rails.application.routes.draw do
   resources :users do
     resources :calendar, only: :index
   end
-  get 'events', to: 'event#show'
-  post 'events/create', to: 'event#create'
-  post 'events/edit', to: 'event#edit_event'
-  get '/users/:id/events', to: 'event#events'
+  get 'events', to: 'events#show'
+  post 'events/create', to: 'events#create'
+  patch 'events/update', to: 'events#update'
+  delete 'events/destroy', to: 'events#destroy'
+
   resources :workbooks do
     resources :question_answers do
       collection do

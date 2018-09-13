@@ -13,5 +13,6 @@ class User < ApplicationRecord
   has_many :memory_question_answers, through: :memories, source: 'question_answer'
   has_many :favorites
   has_many :favorite_workbooks, through: :favorites, source: 'workbook'
+  has_many :events
 
 end
