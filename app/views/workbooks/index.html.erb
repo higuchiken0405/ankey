@@ -47,7 +47,6 @@
               <%=link_to "#{result.title}", workbook_path(result), class: 'title-link' %>
             </div>
             <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data">
-              <%= result.question_answers.count %>
               <%= simple_format(result.overview) %>
             </div>
             <div class="col-md-2 col-sm-2 col-xs-2 workbooks-data">
@@ -94,6 +93,7 @@
 </div>
 <script>
 $(function(){
+
   // ”Create Workbook”ボタンを押すと、モーダルフォーム表示
   $(document).on('click', '.work-new-form-show-btn', function(){
     $('#workbook-new-form-modal').fadeIn();
@@ -127,6 +127,9 @@ $(function(){
 </script>
 <script>
 $(document).on('click', '.title-link', function(){
+  location.reload();
+});
+$(document).on('click', '.pagination', function(){
   location.reload();
 });
 </script>

@@ -63,18 +63,3 @@ $(document).on('click', '.show-answer-workbook', function(){
   $(this).next().addClass('show-answer').removeClass('hidden-answer-workbook');
 })
 </script>
-<script>
-$(function(){
-// メニューをクリックすると、メニュー表示
-  $(document).on('click', '.workbook-menu-btn', function(){
-    var $workbookMenu = $(this).next();
-    if ( $workbookMenu.css('display') == 'none' ) {
-      $(this).text('Close');
-      $workbookMenu.slideDown();
-    } else {
-      $(this).text('Open');
-      $workbookMenu.slideUp();
-    }
- });
-});
-</script>

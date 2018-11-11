@@ -31,6 +31,8 @@
 <script>
 $(function(){
   // ”問題・答えを作成”ボタンを押すと、モーダルフォーム表示
+  //location.reload(true);
+
   $(document).on('click', '.question-answer-form-show-btn', function(){
     $('#question-answer-form-modal').fadeIn();
   });
@@ -39,6 +41,9 @@ $(function(){
   });
   // スライドにアクセス時に更新　nextの処理が2個ずつ増えるため
   $(document).on('click', '.slide-start-btn', function(){
+    location.reload();
+  });
+  $(document).on('click', '.pagination', function(){
     location.reload();
   });
 });
@@ -60,5 +65,18 @@ $(function(){
 });
   $(document).on('change', '.workbook-csv', function(){
     $('#csvname').val($(this).val().replace(/^.*\\/, ""));
+  });
+  $(function(){
+  // メニューをクリックすると、メニュー表示
+    $(document).on('click', '.workbook-menu-btn', function(){
+      var $workbookMenu = $(this).next();
+      if ( $workbookMenu.css('display') == 'none' ) {
+        $(this).text('Close');
+        $workbookMenu.slideDown();
+      } else {
+        $(this).text('Open');
+        $workbookMenu.slideUp();
+      }
+   });
   });
 </script>

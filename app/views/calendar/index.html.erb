@@ -3,21 +3,20 @@
     <div class="container-calendar">
       <div id="calendar"></div>
     </div>
-    <div id="pageXY"></div>
     <!-- イベント情報モーダル -->
     <div class="event-info" id="event-info-modal">
       <h2>イベント情報</h1>
       <div class="row">
-        <p class="event-title col-md-4 col-md-offset-1">タイトル:</p>
-        <p id="event-title-info" class="col-md-6"></p>
+        <p class="event-title col-md-4 col-md-offset-1 col-sm-4 col-sm-offset-1">タイトル:</p>
+        <p id="event-title-info" class="col-md-6 col-sm-6"></p>
       </div>
       <div class="row">
-        <p class="event-start col-md-4 col-md-offset-1">開始時刻:</p>
-        <p id="event-start-info" class="col-md-6"></p>
+        <p class="event-start col-md-4 col-md-offset-1 col-sm-4 col-sm-offset-1">開始時刻:</p>
+        <p id="event-start-info" class="col-md-6 col-sm-6"></p>
       </div>
       <div class="row">
-        <p class="event-end col-md-4 col-md-offset-1">終了時刻:</p>
-        <p id="event-end-info" class="col-md-6"></p>
+        <p class="event-end col-md-4 col-md-offset-1 col-sm-4 col-sm-offset-1">終了時刻:</p>
+        <p id="event-end-info" class="col-md-6 col-sm-6"></p>
       </div>
     </div>
 
@@ -167,7 +166,6 @@ $(document).ready(function() {
       document.getElementById('event-start-info').textContent = moment(event.start).format('YYYY/MM/DD HH:mm');
       document.getElementById('event-end-info').textContent = moment(event.end).format('YYYY/MM/DD HH:mm');
       document.getElementById('event-info-modal').style.display = 'block';
-      document.getElementById('pageXY').textContent = jsEvent.pageX;
 
       if(jsEvent.pageX > 800) {
         var leftX = (jsEvent.pageX - 200) + "px";

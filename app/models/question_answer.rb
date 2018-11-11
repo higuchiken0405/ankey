@@ -1,8 +1,8 @@
 class QuestionAnswer < ApplicationRecord
   validates :workbook_id, presence: true
   validates :user_id, presence: true
-  validates :question, presence: true
-  validates :answer, presence: true
+  validates :question, presence: true, length: { in: 1..165 }
+  validates :answer, presence: true, length: { in: 1..165 }
 
   belongs_to :user
   belongs_to :workbook

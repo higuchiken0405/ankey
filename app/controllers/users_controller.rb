@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :show, :update]
   before_action :correct_user, only: [:update, :create]
-
+  
   # ユーザー登録画面のフォームデータを処理(サインアップ)
   def create
     @user = User.new(user_params)
